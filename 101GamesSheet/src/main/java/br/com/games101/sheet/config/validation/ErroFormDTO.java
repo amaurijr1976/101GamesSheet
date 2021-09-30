@@ -11,6 +11,4 @@ public class ErroFormDTO {
 	
 	private String campo;
 	private String erro;
-	private LocalDate date;
-
 }
