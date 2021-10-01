@@ -10,4 +10,5 @@ public class ErroFormDTO {
 	//subida
 	private String campo;
 	private String erro;
+	private String dataErro;
 }

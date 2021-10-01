@@ -1,7 +1,6 @@
 package br.com.games101.sheet.config.validation;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import br.com.games101.sheet.util.Util;
+
 @RestControllerAdvice
 public class ErroDeValidacaoHandler {
 
@@ -21,11 +22,15 @@ public class ErroDeValidacaoHandler {
 	private MessageSource messageSource;
 	
 	@ResponseStatus(code=HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ExceptionHandler({MethodArgumentNotValidException.class})
 	public List<ErroFormDTO> handle(MethodArgumentNotValidException exception) {
 		List<FieldError> erros = exception.getBindingResult().getFieldErrors();
 		return erros.stream().map(e -> {String mensagemErro = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-										return ErroFormDTO.builder().campo(e.getField()).erro(mensagemErro).build();
+										return ErroFormDTO.builder()
+											   .campo(e.getField())
+											   .erro(mensagemErro)
+											   .dataErro(new Util().retornaDataAtualFormatado())
+											   .build();
 										}).collect(Collectors.toList());
 	}
 	
