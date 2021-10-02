@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import br.com.games101.sheet.constant.FormatoData;
 import br.com.games101.sheet.util.Util;
 
 @RestControllerAdvice
@@ -29,9 +30,19 @@ public class ErroDeValidacaoHandler {
 										return ErroFormDTO.builder()
 											   .campo(e.getField())
 											   .erro(mensagemErro)
-											   .dataErro(new Util().retornaDataAtualFormatado())
+											   .dataErro(new Util().retornaDataAtualFormatado(FormatoData.FORMATTERDATAERROSIMPLES.getLabel()))
 											   .build();
 										}).collect(Collectors.toList());
+	}
+	
+	
+	@ResponseStatus(code=HttpStatus.BAD_REQUEST)
+	@ExceptionHandler({IllegalArgumentException.class})
+	public ErroFormDTO handle(IllegalArgumentException exception) {
+			return ErroFormDTO.builder()
+							  .erro(exception.getMessage())
+							  .dataErro(new Util().retornaDataAtualFormatado(FormatoData.FORMATTERDATAERROSIMPLES.getLabel()))
+							  .build();
 	}
 	
 }

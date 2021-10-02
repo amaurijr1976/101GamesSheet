@@ -1,15 +1,15 @@
 package br.com.games101.sheet.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.context.i18n.LocaleContextHolder;
 
 public class Util {
 	
 
-	public String retornaDataAtualFormatado() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-		Calendar calendar = Calendar.getInstance(LocaleContextHolder.getLocale());
-		return formatter.format(calendar.getTime());
+	public String retornaDataAtualFormatado(String formatoData) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatoData, LocaleContextHolder.getLocale());
+		return LocalDate.now().format(formatter);
 	}
 }
