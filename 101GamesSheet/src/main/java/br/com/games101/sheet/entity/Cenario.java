@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import br.com.games101.sheet.dto.CenarioResponseDTO;
-import br.com.games101.sheet.dto.CenarioResquestDTO;
+import br.com.games101.sheet.dto.CenarioRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,7 +43,7 @@ public class Cenario {
 					  .build();
 	}
 	
-	static public Cenario retornaEntity(CenarioResquestDTO request) {
+	static public Cenario retornaEntity(CenarioRequestDTO request) {
 		return Cenario.builder().nome(request.getNome()).build();
 	}
 	

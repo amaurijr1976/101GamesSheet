@@ -13,9 +13,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ItemRequestDTO implements Serializable {
+public class PericiaRequestDTO implements Serializable {
 
-	private static final long serialVersionUID = 4815755529445540690L;
+	
+	private static final long serialVersionUID = 1L;
 
 	@NotBlank @Length(min = 3, max = 45, message = "Tamanho do nome deve ser entre 3 e 45 caracteres.")
 	private String nome;

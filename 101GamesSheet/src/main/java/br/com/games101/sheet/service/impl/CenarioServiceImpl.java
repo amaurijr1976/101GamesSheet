@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.games101.sheet.dto.CenarioResponseDTO;
-import br.com.games101.sheet.dto.CenarioResquestDTO;
+import br.com.games101.sheet.dto.CenarioRequestDTO;
 import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.repository.CenarioRepository;
 import br.com.games101.sheet.service.CenarioService;
@@ -27,7 +27,7 @@ public class CenarioServiceImpl implements CenarioService {
 	}
 
 	@Override
-	public CenarioResponseDTO salvarCenario(CenarioResquestDTO cenarioResquest) {
+	public CenarioResponseDTO salvarCenario(CenarioRequestDTO cenarioResquest) {
 		Cenario cenario = cenarioRepository.save(Cenario.retornaEntity(cenarioResquest));
 		return CenarioResponseDTO.convertDTO(cenario);
 	}
@@ -46,7 +46,7 @@ public class CenarioServiceImpl implements CenarioService {
 
 	@Override
 	@Transactional
-	public CenarioResponseDTO atualizarCenario(Long id, CenarioResquestDTO cenarioResquest) {
+	public CenarioResponseDTO atualizarCenario(Long id, CenarioRequestDTO cenarioResquest) {
 		Optional<Cenario> cenario = cenarioRepository.findById(id);
 		CenarioResponseDTO cenarioResponse = null;
 		if(cenario.isPresent()) {

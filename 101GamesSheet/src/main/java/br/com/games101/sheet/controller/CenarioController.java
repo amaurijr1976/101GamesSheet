@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.games101.sheet.dto.CenarioResponseDTO;
-import br.com.games101.sheet.dto.CenarioResquestDTO;
+import br.com.games101.sheet.dto.CenarioRequestDTO;
 import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.service.CenarioService;
 
@@ -44,14 +44,14 @@ public class CenarioController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<CenarioResponseDTO> incluirFicha(@RequestBody @Valid CenarioResquestDTO cenarioResquest, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<CenarioResponseDTO> incluirFicha(@RequestBody @Valid CenarioRequestDTO cenarioResquest, UriComponentsBuilder uriBuilder){
 		CenarioResponseDTO cenarioResponse = cenarioService.salvarCenario(cenarioResquest);
 		URI uri = uriBuilder.path("/cenario/{id}").buildAndExpand(cenarioResponse.getId()).toUri();
 		return ResponseEntity.created(uri).body(cenarioResponse);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<CenarioResponseDTO> atualizarCenario(@RequestBody @Valid CenarioResquestDTO cenarioResquest,@PathVariable Long id){
+	public ResponseEntity<CenarioResponseDTO> atualizarCenario(@RequestBody @Valid CenarioRequestDTO cenarioResquest,@PathVariable Long id){
 		CenarioResponseDTO cenarioResponse = cenarioService.atualizarCenario(id,cenarioResquest);
 		return (cenarioResponse!=null)?ResponseEntity.ok(cenarioResponse):ResponseEntity.notFound().build();
 	}

@@ -1,17 +1,14 @@
 package br.com.games101.sheet.dto;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.Item;
 import lombok.Builder;
 import lombok.Data;
 
-
-@Data
 @Builder
+@Data
 public class ItemResponseDTO{
 
 	private long id;

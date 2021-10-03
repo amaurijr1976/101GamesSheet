@@ -1,6 +1,5 @@
 package br.com.games101.sheet.entity;
 
-
 import java.util.Optional;
 
 import javax.persistence.Entity;
@@ -10,19 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
 
-import br.com.games101.sheet.dto.CenarioResponseDTO;
-import br.com.games101.sheet.dto.ItemRequestDTO;
-import lombok.AllArgsConstructor;
+import br.com.games101.sheet.dto.PericiaRequestDTO;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
 @Builder
-@Entity(name="tb_item")
-public class Item {
+@Data
+@Entity(name ="tb_pericia")
+public class Pericia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,12 +33,13 @@ public class Item {
    @JoinColumn(name="ficha", nullable=false)
    private Cenario cenario;
 	
-	static public Item retornaEntity(ItemRequestDTO request,Optional<Cenario> cenario) {
-			return Item.builder()
+	static public Pericia retornaEntity(PericiaRequestDTO request,Optional<Cenario> cenario) {
+			return Pericia.builder()
 						 .nome(request.getNome())
 						 .descricao(request.getDescricao())
 						 .tipo(request.getTipo())
 						 .cenario(cenario.get())
 						 .build();
 	}
+	
 }

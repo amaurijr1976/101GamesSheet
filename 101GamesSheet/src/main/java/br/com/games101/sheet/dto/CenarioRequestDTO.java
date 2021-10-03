@@ -11,7 +11,7 @@ import lombok.Data;
 
 
 @Data
-public class CenarioResquestDTO implements Serializable {
+public class CenarioRequestDTO implements Serializable {
 
 	private static final long serialVersionUID = 4815755529445540690L;
 
