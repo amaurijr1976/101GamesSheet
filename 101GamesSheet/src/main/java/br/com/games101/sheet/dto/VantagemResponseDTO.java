@@ -22,16 +22,16 @@ public class VantagemResponseDTO implements Serializable {
 	private Long cenario;
 
 	static public List<VantagemResponseDTO> convertDTO(List<Vantagem> listaVantagens){
-		return listaVantagems.stream().map(pericia -> VantagemResponseDTO.convertDTO(pericia)).collect(Collectors.toList());
+		return listaVantagens.stream().map(vantagem -> VantagemResponseDTO.convertDTO(vantagem)).collect(Collectors.toList());
 	}
 
-	public static VantagemResponseDTO convertDTO(Vantagem vamtagem) {
+	public static VantagemResponseDTO convertDTO(Vantagem vantagem) {
 		return VantagemResponseDTO.builder()
-							  .id(pericia.getId())
-							  .nome(pericia.getNome())
-							  .tipo(pericia.getTipo())
-							  .descricao(pericia.getDescricao())
-							  .cenario(pericia.getCenario().getId())
+							  .id(vantagem.getId())
+							  .nome(vantagem.getNome())
+							  .tipo(vantagem.getTipo())
+							  .descricao(vantagem.getDescricao())
+							  .cenario(vantagem.getCenario().getId())
 							  .build();
 	}
 }
