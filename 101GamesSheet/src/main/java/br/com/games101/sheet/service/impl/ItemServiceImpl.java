@@ -9,12 +9,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.games101.sheet.dto.CenarioResponseDTO;
 import br.com.games101.sheet.dto.ItemRequestDTO;
 import br.com.games101.sheet.dto.ItemResponseDTO;
 import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.Item;
 import br.com.games101.sheet.repository.ItemReposityory;
+import br.com.games101.sheet.service.CenarioService;
 import br.com.games101.sheet.service.ItemService;
 
 @Service
@@ -23,6 +23,8 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private ItemReposityory itemRepository;
 	
+	@Autowired
+	private CenarioService cenarioService;
 
 	@Override
 	public List<ItemResponseDTO> listaItems() {
@@ -30,21 +32,20 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public ItemResponseDTO buscaItems(Long id) {
-		Optional<Item> item = itemRepository.findById(id);
-		return (item.isPresent())?ItemResponseDTO.convertDTO(item.get()):null;
+	public Optional<Item> buscaItems(Long id) {
+		return itemRepository.findById(id);
 	}
 
 	@Override
-	public ItemResponseDTO incluiItem(@Valid ItemRequestDTO itemRequest,CenarioResponseDTO cenario) throws IllegalArgumentException {
-		Item item = Item.retornaEntity(itemRequest,cenario);
+	public ItemResponseDTO incluiItem(@Valid ItemRequestDTO itemRequest) throws IllegalArgumentException {
+		Item item = Item.retornaEntity(itemRequest,cenarioService.buscarCenario(itemRequest.getCenario()));
 		ItemResponseDTO itemResponse = ItemResponseDTO.convertDTO(itemRepository.save(item));
 		return itemResponse;
 	}
 
 	@Override
 	@Transactional
-	public ItemResponseDTO alterarItem(@Valid ItemRequestDTO itemRequest, CenarioResponseDTO cenarioResponse, long id) {
+	public ItemResponseDTO alterarItem(@Valid ItemRequestDTO itemRequest, long id) {
 		Optional<Item> item = itemRepository.findById(id);
 		ItemResponseDTO itemResponse = null;
 		if(item.isPresent()) {
@@ -52,7 +53,7 @@ public class ItemServiceImpl implements ItemService {
 			item.get().setNome(itemRequest.getNome());
 			item.get().setTipo(itemRequest.getTipo());
 			item.get().setDescricao(itemRequest.getDescricao());
-			item.get().setCenario(Cenario.builder().id(cenarioResponse.getId()).nome(cenarioResponse.getNome()).build());
+			item.get().setCenario(cenarioService.buscarCenario(itemRequest.getCenario()).get());
 			itemResponse = ItemResponseDTO.convertDTO(item.get());
 		}
 		return itemResponse;
@@ -60,14 +61,8 @@ public class ItemServiceImpl implements ItemService {
 	
 	@Override
 	@Transactional
-	public boolean excluirItem(Long id) {
-		boolean isDelete = false;
-		Optional<Item> cenario = itemRepository.findById(id);
-		if(cenario.isPresent()) {
-			itemRepository.deleteById(id);
-			isDelete=true;
-		}
-		return isDelete;
+	public void excluirItem(Long id) {
+		itemRepository.deleteById(id);
 	}
 	
 	

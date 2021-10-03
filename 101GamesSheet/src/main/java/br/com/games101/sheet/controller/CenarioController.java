@@ -2,6 +2,7 @@ package br.com.games101.sheet.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.games101.sheet.dto.CenarioResponseDTO;
 import br.com.games101.sheet.dto.CenarioResquestDTO;
+import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.service.CenarioService;
 
 @RestController
@@ -37,8 +39,8 @@ public class CenarioController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<CenarioResponseDTO> buscarCenario(@PathVariable Long id){
-		CenarioResponseDTO cenario = cenarioService.buscarCenario(id);
-		return (cenario!=null)?ResponseEntity.ok(cenario):ResponseEntity.notFound().build();
+		Optional<Cenario> buscarCenario = cenarioService.buscarCenario(id);
+		return (buscarCenario.isPresent())?ResponseEntity.ok(CenarioResponseDTO.convertDTO(buscarCenario.get())):ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping()
@@ -55,8 +57,10 @@ public class CenarioController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> excluirFicha(@PathVariable Long id){
-		return (cenarioService.excluirFicha(id))?ResponseEntity.ok().build():ResponseEntity.notFound().build();
+	public ResponseEntity<?> excluirCenario(@PathVariable Long id){
+		Optional<Cenario> buscarCenario = cenarioService.buscarCenario(id);
+		if (buscarCenario.isPresent()) cenarioService.excluirFicha(id);
+		return (buscarCenario.isPresent())?ResponseEntity.ok().build():ResponseEntity.notFound().build();
 	}
 	
 	

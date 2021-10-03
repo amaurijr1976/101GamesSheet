@@ -29,25 +29,19 @@ public class CenarioServiceImpl implements CenarioService {
 	@Override
 	public CenarioResponseDTO salvarCenario(CenarioResquestDTO cenarioResquest) {
 		Cenario cenario = cenarioRepository.save(Cenario.retornaEntity(cenarioResquest));
-		return CenarioResponseDTO.convertDTO(Optional.ofNullable(cenario));
+		return CenarioResponseDTO.convertDTO(cenario);
 	}
 
 	@Override
-	public CenarioResponseDTO buscarCenario(@NotNull Long id) {
+	public Optional<Cenario> buscarCenario(@NotNull Long id) {
 		Optional<Cenario> cenario = cenarioRepository.findById(id);
-		return (cenario.isPresent())?CenarioResponseDTO.convertDTO(Optional.ofNullable(cenario.get())):null;
+		return cenario;
 	}
 
 	@Override
 	@Transactional
-	public boolean excluirFicha(Long id) {
-		boolean existe = false;
-		Optional<Cenario> cenario = cenarioRepository.findById(id);
-		if(cenario.isPresent()) {
-			cenarioRepository.deleteById(id);
-			existe=true;
-		}
-		return existe;
+	public void excluirFicha(Long id) {
+		cenarioRepository.deleteById(id);
 	}
 
 	@Override
@@ -57,9 +51,8 @@ public class CenarioServiceImpl implements CenarioService {
 		CenarioResponseDTO cenarioResponse = null;
 		if(cenario.isPresent()) {
 			cenario.get().setNome(cenarioResquest.getNome());
-			cenarioResponse = CenarioResponseDTO.convertDTO(Optional.of(cenario.get()));
+			cenarioResponse = CenarioResponseDTO.convertDTO(cenario.get());
 		}
 		return cenarioResponse;
 	}
-
 }

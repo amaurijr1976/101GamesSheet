@@ -1,7 +1,7 @@
 package br.com.games101.sheet.entity;
 
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,12 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
-import org.springframework.web.bind.annotation.RequestBody;
-
 import br.com.games101.sheet.dto.CenarioResponseDTO;
-import br.com.games101.sheet.dto.CenarioResquestDTO;
 import br.com.games101.sheet.dto.ItemRequestDTO;
-import br.com.games101.sheet.dto.ItemResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,23 +40,12 @@ public class Item {
    @JoinColumn(name="ficha", nullable=false)
    private Cenario cenario;
 	
-	static public Item retornaEntity(ItemRequestDTO request,CenarioResponseDTO cenario) {
-		Item item = null;
-		if(request.getCenario() == cenario.getId()) {
-			item = Item.builder()
+	static public Item retornaEntity(ItemRequestDTO request,Optional<Cenario> cenario) {
+			return Item.builder()
 						 .nome(request.getNome())
 						 .descricao(request.getDescricao())
 						 .tipo(request.getTipo())
-						 .cenario(Cenario.retornaEntity(cenario))
+						 .cenario(cenario.get())
 						 .build();
-		}
-		return item;
 	}
-
-	public static Item retornaEntityAtualizacao(@Valid ItemRequestDTO itemRequest,CenarioResponseDTO cenarioResponseDTO,Long id) {
-		Item item = retornaEntity(itemRequest, cenarioResponseDTO);
-		item.setId(id);
-		return item;
-	}
-   
 }

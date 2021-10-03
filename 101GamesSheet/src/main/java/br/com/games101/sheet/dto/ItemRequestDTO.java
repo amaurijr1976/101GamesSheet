@@ -7,8 +7,7 @@ import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
 
-import br.com.games101.sheet.entity.Cenario;
-import br.com.games101.sheet.entity.Item;
+import br.com.games101.sheet.validation.CenarioExistAnnotation;
 import lombok.Data;
 
 @Data
@@ -25,6 +24,7 @@ public class ItemRequestDTO implements Serializable {
 	@NotBlank @Length(min = 3, max = 400, message = "Tamanho do nome deve ser entre 3 e 400 caracteres.")
 	private String descricao;
 	
-	@Positive(message = "Id do cenario deve ser um numero positivo")
+	@Positive(message = "Conveio deve ser um numero positivo")
+	@CenarioExistAnnotation
 	private Long cenario;
 }

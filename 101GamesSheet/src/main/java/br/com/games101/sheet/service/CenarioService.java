@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.games101.sheet.dto.CenarioResponseDTO;
 import br.com.games101.sheet.dto.CenarioResquestDTO;
-import br.com.games101.sheet.dto.relacaoCenario.ItensPorCenarioResponseDTO;
+import br.com.games101.sheet.entity.Cenario;
 
 public interface CenarioService {
 
@@ -16,9 +16,9 @@ public interface CenarioService {
 
 	public CenarioResponseDTO salvarCenario(CenarioResquestDTO cenarioResquest);
 
-	public CenarioResponseDTO buscarCenario(@NotNull Long id);
+	public Optional<Cenario> buscarCenario(@NotNull Long id);
 
-	public boolean excluirFicha(Long id);
+	public void excluirFicha(Long id);
 
 	public CenarioResponseDTO atualizarCenario(Long id, @Valid CenarioResquestDTO cenarioResquest);
 

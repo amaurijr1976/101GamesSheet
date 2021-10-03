@@ -22,18 +22,14 @@ public class CenarioResponseDTO {
 	
 	public static List<CenarioResponseDTO> convertDTO(List<Cenario> cenarios) {
         return  cenarios.stream()
-        			  .map(cenario -> CenarioResponseDTO.convertDTO(Optional.of(cenario)))
+        			  .map(cenario -> CenarioResponseDTO.convertDTO(cenario))
         			  .collect(Collectors.toList());
 	}
 	
-	public static CenarioResponseDTO convertDTO(Optional<Cenario> cenario) {
-        if(cenario.isEmpty()) {
-        	return null;
-        }else{
+	public static CenarioResponseDTO convertDTO(Cenario cenario) {
         	return  CenarioResponseDTO.builder()
-				.id(cenario.get().getId())
-				.nome(cenario.get().getNome())
+				.id(cenario.getId())
+				.nome(cenario.getNome())
 				.build();
-        }
 	}
 }
