@@ -37,17 +37,25 @@ public class CenarioController {
 		return ResponseEntity.status(HttpStatus.OK).body(listaFichas);
 	}
 	
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<CenarioResponseDTO> buscarCenario(@PathVariable Long id){
 		Optional<Cenario> buscarCenario = cenarioService.buscarCenario(id);
 		return (buscarCenario.isPresent())?ResponseEntity.ok(CenarioResponseDTO.convertDTO(buscarCenario.get())):ResponseEntity.notFound().build();
 	}
 	
+	
 	@PostMapping()
 	public ResponseEntity<CenarioResponseDTO> incluirFicha(@RequestBody @Valid CenarioRequestDTO cenarioResquest, UriComponentsBuilder uriBuilder){
-		CenarioResponseDTO cenarioResponse = cenarioService.salvarCenario(cenarioResquest);
+		CenarioResponseDTO cenarioResponse = cenarioService.incluiCenario(cenarioResquest);
 		URI uri = uriBuilder.path("/cenario/{id}").buildAndExpand(cenarioResponse.getId()).toUri();
 		return ResponseEntity.created(uri).body(cenarioResponse);
+	}
+	
+	@PostMapping("/incluiListaCenarios")
+	public ResponseEntity<List<CenarioResponseDTO>> incluirListaFicha(@RequestBody @Valid List<CenarioRequestDTO> cenarioResquestLista){
+		List<CenarioResponseDTO> cenarioResponseLista = cenarioService.incluiCenarioLista(cenarioResquestLista);
+		return ResponseEntity.ok(cenarioResponseLista);
 	}
 	
 	@PutMapping("/{id}")

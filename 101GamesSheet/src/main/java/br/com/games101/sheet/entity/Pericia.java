@@ -11,11 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.com.games101.sheet.dto.PericiaRequestDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name ="tb_pericia")
 public class Pericia {
 
@@ -24,8 +28,6 @@ public class Pericia {
 	private long id;
 	
 	private String nome;
-	
-	private String tipo;
 	
 	private String descricao;
 	
@@ -37,7 +39,6 @@ public class Pericia {
 			return Pericia.builder()
 						 .nome(request.getNome())
 						 .descricao(request.getDescricao())
-						 .tipo(request.getTipo())
 						 .cenario(cenario.get())
 						 .build();
 	}

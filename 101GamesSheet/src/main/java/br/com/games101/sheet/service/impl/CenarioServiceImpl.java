@@ -1,17 +1,23 @@
 package br.com.games101.sheet.service.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.games101.sheet.dto.CenarioResponseDTO;
 import br.com.games101.sheet.dto.CenarioRequestDTO;
+import br.com.games101.sheet.dto.CenarioResponseDTO;
+import br.com.games101.sheet.dto.FeiticoRequestDTO;
+import br.com.games101.sheet.dto.FeiticoResponseDTO;
 import br.com.games101.sheet.entity.Cenario;
+import br.com.games101.sheet.entity.Feitico;
 import br.com.games101.sheet.repository.CenarioRepository;
 import br.com.games101.sheet.service.CenarioService;
 
@@ -27,9 +33,23 @@ public class CenarioServiceImpl implements CenarioService {
 	}
 
 	@Override
-	public CenarioResponseDTO salvarCenario(CenarioRequestDTO cenarioResquest) {
-		Cenario cenario = cenarioRepository.save(Cenario.retornaEntity(cenarioResquest));
-		return CenarioResponseDTO.convertDTO(cenario);
+	@Transactional
+	public List<CenarioResponseDTO> incluiCenarioLista(List<CenarioRequestDTO> cenarioResquestLista) {
+		List<CenarioResponseDTO> cenarioResponseLista = new ArrayList<CenarioResponseDTO>();
+		cenarioResquestLista.forEach(cenarioRequest -> cenarioResponseLista.add(
+													   		CenarioResponseDTO.convertDTO(
+													   				cenarioRepository.save(Cenario.retornaEntity(cenarioRequest))
+													   		 )
+													   	)
+									);
+		return cenarioResponseLista;
+	}
+	
+	
+	@Override
+	public CenarioResponseDTO incluiCenario(@Valid CenarioRequestDTO cenarioRequest){
+		Cenario cenario = Cenario.retornaEntity(cenarioRequest);
+		return CenarioResponseDTO.convertDTO(cenarioRepository.save(cenario));
 	}
 
 	@Override

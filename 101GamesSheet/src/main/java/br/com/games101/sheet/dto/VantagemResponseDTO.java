@@ -17,7 +17,6 @@ public class VantagemResponseDTO implements Serializable {
 	
 	private long id;
 	private String nome;
-	private String tipo;
 	private String descricao;
 	private Long cenario;
 
@@ -29,7 +28,6 @@ public class VantagemResponseDTO implements Serializable {
 		return VantagemResponseDTO.builder()
 							  .id(vantagem.getId())
 							  .nome(vantagem.getNome())
-							  .tipo(vantagem.getTipo())
 							  .descricao(vantagem.getDescricao())
 							  .cenario(vantagem.getCenario().getId())
 							  .build();

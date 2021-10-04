@@ -23,11 +23,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.games101.sheet.dto.ItemRequestDTO;
 import br.com.games101.sheet.dto.ItemResponseDTO;
+import br.com.games101.sheet.dto.VantagemRequestDTO;
+import br.com.games101.sheet.dto.VantagemResponseDTO;
 import br.com.games101.sheet.entity.Item;
 import br.com.games101.sheet.service.ItemService;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/item")
 @ResponseBody
 public class ItemController {
 	
@@ -47,15 +49,22 @@ public class ItemController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<ItemResponseDTO> incluiItem(@RequestBody @Valid ItemRequestDTO itemRequest,UriComponentsBuilder uriBuilder) throws IllegalAccessException{
+	public ResponseEntity<ItemResponseDTO> incluiItem(@RequestBody @Valid ItemRequestDTO itemRequest,UriComponentsBuilder uriBuilder){
 			ItemResponseDTO item = itemService.incluiItem(itemRequest);
 			URI uri = uriBuilder.path("items/{id}").buildAndExpand(item.getId()).toUri();
 			return ResponseEntity.created(uri).body(item);
 	}
 	
+	@PostMapping("/incluiListaItens")
+	public ResponseEntity<List<ItemResponseDTO>> incluiListaItens(@RequestBody @Valid List<ItemRequestDTO> itemRequestLista){
+			List<ItemResponseDTO> itens = itemService.incluiListaItens(itemRequestLista);
+			return ResponseEntity.status(HttpStatus.CREATED).body(itens);
+	}
+	
+	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ItemResponseDTO> alterarItem(@RequestBody @Valid ItemRequestDTO itemRequest,@PathVariable long id) throws IllegalAccessException{
+	public ResponseEntity<ItemResponseDTO> alterarItem(@RequestBody @Valid ItemRequestDTO itemRequest,@PathVariable long id){
 		ItemResponseDTO item = itemService.alterarItem(itemRequest,id);
 		return (item !=null)?ResponseEntity.ok(item):ResponseEntity.notFound().build();
 	}

@@ -17,7 +17,6 @@ public class PericiaResponseDTO implements Serializable {
 	
 	private long id;
 	private String nome;
-	private String tipo;
 	private String descricao;
 	private Long cenario;
 
@@ -29,7 +28,6 @@ public class PericiaResponseDTO implements Serializable {
 		return PericiaResponseDTO.builder()
 							  .id(pericia.getId())
 							  .nome(pericia.getNome())
-							  .tipo(pericia.getTipo())
 							  .descricao(pericia.getDescricao())
 							  .cenario(pericia.getCenario().getId())
 							  .build();

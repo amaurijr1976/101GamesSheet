@@ -1,5 +1,6 @@
 package br.com.games101.sheet.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,9 +12,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.games101.sheet.dto.ItemRequestDTO;
 import br.com.games101.sheet.dto.ItemResponseDTO;
-import br.com.games101.sheet.entity.Cenario;
+import br.com.games101.sheet.dto.PericiaResponseDTO;
 import br.com.games101.sheet.entity.Item;
-import br.com.games101.sheet.repository.ItemReposityory;
+import br.com.games101.sheet.entity.Pericia;
+import br.com.games101.sheet.repository.ItemRepository;
 import br.com.games101.sheet.service.CenarioService;
 import br.com.games101.sheet.service.ItemService;
 
@@ -21,7 +23,7 @@ import br.com.games101.sheet.service.ItemService;
 public class ItemServiceImpl implements ItemService {
 
 	@Autowired
-	private ItemReposityory itemRepository;
+	private ItemRepository itemRepository;
 	
 	@Autowired
 	private CenarioService cenarioService;
@@ -41,6 +43,19 @@ public class ItemServiceImpl implements ItemService {
 		Item item = Item.retornaEntity(itemRequest,cenarioService.buscarCenario(itemRequest.getCenario()));
 		ItemResponseDTO itemResponse = ItemResponseDTO.convertDTO(itemRepository.save(item));
 		return itemResponse;
+	}
+	
+	@Override
+	@Transactional
+	public List<ItemResponseDTO> incluiListaItens(@Valid List<ItemRequestDTO> itemRequestLista) {
+		List<ItemResponseDTO> itemResponseLista = new ArrayList<ItemResponseDTO>();
+		itemRequestLista.forEach(itemRequest -> itemResponseLista.add(
+													   		ItemResponseDTO.convertDTO(
+													   				itemRepository.save(Item.retornaEntity(itemRequest,cenarioService.buscarCenario(itemRequest.getCenario())))
+													   		 )
+													   	)
+									);
+		return itemResponseLista;
 	}
 
 	@Override
@@ -64,6 +79,7 @@ public class ItemServiceImpl implements ItemService {
 	public void excluirItem(Long id) {
 		itemRepository.deleteById(id);
 	}
+
 	
 	
 

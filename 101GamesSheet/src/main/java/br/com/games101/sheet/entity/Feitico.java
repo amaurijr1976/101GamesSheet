@@ -11,13 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.com.games101.sheet.dto.FeiticoRequestDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
 @Builder
-@Entity(name="tb_feitico")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity(name="tb_magia")
 public class Feitico {
 
 	@Id
@@ -25,8 +29,6 @@ public class Feitico {
 	private long id;
 	
 	private String nome;
-	
-	private String tipo;
 	
 	private String descricao;
 	
@@ -38,7 +40,6 @@ public class Feitico {
 			return Feitico.builder()
 						 .nome(request.getNome())
 						 .descricao(request.getDescricao())
-						 .tipo(request.getTipo())
 						 .cenario(cenario.get())
 						 .build();
 	}

@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.games101.sheet.dto.relacaoCenario.FeiticosPorCenarioResponseDTO;
 import br.com.games101.sheet.dto.relacaoCenario.ItensPorCenarioResponseDTO;
+import br.com.games101.sheet.dto.relacaoCenario.PericiasPorCenarioResponseDTO;
+import br.com.games101.sheet.dto.relacaoCenario.VantagensPorCenarioResponseDTO;
 import br.com.games101.sheet.service.CenarioListasService;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@Slf4j
 @RequestMapping("/listaporcenarios")
 public class CenarioListasController {
 
@@ -21,9 +22,27 @@ public class CenarioListasController {
 	private CenarioListasService cenarioListasService; 
 	
 	@GetMapping("/{id}/itens")
-	public ResponseEntity<ItensPorCenarioResponseDTO> relacaoPorCenario(@PathVariable long id){
+	public ResponseEntity<ItensPorCenarioResponseDTO> relacaoItensPorCenario(@PathVariable long id){
 		ItensPorCenarioResponseDTO itemPorCenario = cenarioListasService.listaItensPorCenario(id);
 		return ResponseEntity.status(HttpStatus.OK).body(itemPorCenario);
+	}
+	
+	@GetMapping("/{id}/feiticos")
+	public ResponseEntity<FeiticosPorCenarioResponseDTO> relacaoFeiticosPorCenario(@PathVariable long id){
+		FeiticosPorCenarioResponseDTO feiticosPorCenario = cenarioListasService.listaFeiticosPorCenario(id);
+		return ResponseEntity.status(HttpStatus.OK).body(feiticosPorCenario);
+	}
+	
+	@GetMapping("/{id}/vantagens")
+	public ResponseEntity<VantagensPorCenarioResponseDTO> relacaoVantagensPorCenario(@PathVariable long id){
+		VantagensPorCenarioResponseDTO vantagensPorCenario = cenarioListasService.listaVantagensPorCenario(id);
+		return ResponseEntity.status(HttpStatus.OK).body(vantagensPorCenario);
+	}
+	
+	@GetMapping("/{id}/pericias")
+	public ResponseEntity<PericiasPorCenarioResponseDTO> relacaoPericiasPorCenario(@PathVariable long id){
+		PericiasPorCenarioResponseDTO periciasPorCenario = cenarioListasService.listaPericiasPorCenario(id);
+		return ResponseEntity.status(HttpStatus.OK).body(periciasPorCenario);
 	}
 	
 }

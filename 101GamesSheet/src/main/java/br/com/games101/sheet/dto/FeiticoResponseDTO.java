@@ -17,7 +17,6 @@ public class FeiticoResponseDTO implements Serializable {
 	
 	private long id;
 	private String nome;
-	private String tipo;
 	private String descricao;
 	private Long cenario;
 
@@ -29,7 +28,6 @@ public class FeiticoResponseDTO implements Serializable {
 		return FeiticoResponseDTO.builder()
 							  .id(feitico.getId())
 							  .nome(feitico.getNome())
-							  .tipo(feitico.getTipo())
 							  .descricao(feitico.getDescricao())
 							  .cenario(feitico.getCenario().getId())
 							  .build();

@@ -10,12 +10,15 @@ import br.com.games101.sheet.dto.CenarioResponseDTO;
 import br.com.games101.sheet.dto.CenarioRequestDTO;
 import br.com.games101.sheet.entity.Cenario;
 
+
 public interface CenarioService {
 
 	public List<CenarioResponseDTO> listaFichas();
-
-	public CenarioResponseDTO salvarCenario(CenarioRequestDTO cenarioResquest);
-
+	
+	public CenarioResponseDTO incluiCenario(CenarioRequestDTO cenarioResquest);
+	
+	public List<CenarioResponseDTO> incluiCenarioLista(List<CenarioRequestDTO> cenarioResquestLista);
+	
 	public Optional<Cenario> buscarCenario(@NotNull Long id);
 
 	public void excluirFicha(Long id);

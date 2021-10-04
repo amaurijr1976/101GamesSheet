@@ -21,9 +21,6 @@ public class PericiaRequestDTO implements Serializable {
 	@NotBlank @Length(min = 3, max = 45, message = "Tamanho do nome deve ser entre 3 e 45 caracteres.")
 	private String nome;
 	
-	@NotBlank @Length(min = 3, max = 45, message = "Tamanho do tipo deve ser entre 3 e 45 caracteres.")
-	private String tipo;
-	
 	@NotBlank @Length(min = 3, max = 400, message = "Tamanho do descricao deve ser entre 3 e 400 caracteres.")
 	private String descricao;
 		

@@ -10,9 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
 
-import br.com.games101.sheet.dto.CenarioResponseDTO;
 import br.com.games101.sheet.dto.ItemRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +19,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name="tb_item")
 public class Item {
 

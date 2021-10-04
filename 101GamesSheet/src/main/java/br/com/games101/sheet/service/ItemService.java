@@ -15,10 +15,13 @@ public interface ItemService {
 
 	public Optional<Item> buscaItems(Long id);
 
-	public ItemResponseDTO incluiItem(@Valid ItemRequestDTO itemRequest) throws IllegalArgumentException;
+	public ItemResponseDTO incluiItem(@Valid ItemRequestDTO itemRequest);
 
+	public List<ItemResponseDTO> incluiListaItens(@Valid List<ItemRequestDTO> itemRequestLista);
+	
 	public ItemResponseDTO alterarItem(@Valid ItemRequestDTO itemRequest, long id);
 	
 	public void excluirItem(Long id);
+
 
 }
