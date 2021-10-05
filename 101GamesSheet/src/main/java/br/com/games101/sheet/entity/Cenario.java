@@ -1,5 +1,6 @@
 package br.com.games101.sheet.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,8 +21,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="tb_ficha")
-public class Cenario {
+@Entity(name="tb_cenario")
+public class Cenario implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 
 	
 	
@@ -46,6 +50,10 @@ public class Cenario {
 	@OneToMany(mappedBy = "cenario",
 	           fetch = FetchType.LAZY)
 	private List<Pericia> pericias;
+	
+	@OneToMany(mappedBy = "cenario",
+	           fetch = FetchType.LAZY)
+	private List<MelhoriaRefugio> melhoriasRefugio;
 	
 	static public Cenario retornaEntity(CenarioResponseDTO response) {
 		return Cenario.builder()

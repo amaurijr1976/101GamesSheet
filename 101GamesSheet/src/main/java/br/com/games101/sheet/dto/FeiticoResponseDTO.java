@@ -12,13 +12,13 @@ import lombok.Data;
 @Data
 public class FeiticoResponseDTO implements Serializable {
 
-
 	private static final long serialVersionUID = 1L;
 	
 	private long id;
 	private String nome;
 	private String descricao;
-	private Long cenario;
+	private String tipo;
+	private long cenario;
 
 	static public List<FeiticoResponseDTO> convertDTO(List<Feitico> listaItens){
 		return listaItens.stream().map(feitico -> FeiticoResponseDTO.convertDTO(feitico)).collect(Collectors.toList());
@@ -28,6 +28,7 @@ public class FeiticoResponseDTO implements Serializable {
 		return FeiticoResponseDTO.builder()
 							  .id(feitico.getId())
 							  .nome(feitico.getNome())
+							  .tipo(feitico.getTipo())
 							  .descricao(feitico.getDescricao())
 							  .cenario(feitico.getCenario().getId())
 							  .build();

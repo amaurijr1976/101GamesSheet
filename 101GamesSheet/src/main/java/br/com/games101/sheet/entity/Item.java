@@ -1,6 +1,7 @@
 package br.com.games101.sheet.entity;
 
 
+import java.io.Serializable;
 import java.util.Optional;
 
 import javax.persistence.Entity;
@@ -22,7 +23,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name="tb_item")
-public class Item {
+public class Item implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +39,7 @@ public class Item {
 	private String descricao;
 	
    @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name="ficha", nullable=false)
+   @JoinColumn(name="cenario", nullable=false)
    private Cenario cenario;
 	
 	static public Item retornaEntity(ItemRequestDTO request,Optional<Cenario> cenario) {

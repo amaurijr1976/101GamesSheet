@@ -1,5 +1,6 @@
 package br.com.games101.sheet.dto;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,10 @@ import lombok.Data;
 
 @Builder
 @Data
-public class ItemResponseDTO{
+public class ItemResponseDTO implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 
 	private long id;
 	private String nome;

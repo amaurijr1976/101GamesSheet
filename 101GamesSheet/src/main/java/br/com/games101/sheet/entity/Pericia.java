@@ -1,5 +1,6 @@
 package br.com.games101.sheet.entity;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 import javax.persistence.Entity;
@@ -21,7 +22,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name ="tb_pericia")
-public class Pericia {
+public class Pericia implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +36,7 @@ public class Pericia {
 	private String descricao;
 	
    @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name="ficha", nullable=false)
+   @JoinColumn(name="cenario", nullable=false)
    private Cenario cenario;
 	
 	static public Pericia retornaEntity(PericiaRequestDTO request,Optional<Cenario> cenario) {

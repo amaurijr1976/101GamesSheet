@@ -1,5 +1,6 @@
 package br.com.games101.sheet.dto;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,7 +15,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CenarioResponseDTO {
+public class CenarioResponseDTO implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 	
 	private long id;
 	private String nome;

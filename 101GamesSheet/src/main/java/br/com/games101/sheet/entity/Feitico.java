@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="tb_magia")
+@Entity(name="tb_magia_poderes")
 public class Feitico {
 
 	@Id
@@ -32,13 +32,16 @@ public class Feitico {
 	
 	private String descricao;
 	
+	private String tipo;
+	
    @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name="ficha", nullable=false)
+   @JoinColumn(name="cenario", nullable=false)
    private Cenario cenario;
 	
 	static public Feitico retornaEntity(FeiticoRequestDTO request,Optional<Cenario> cenario) {
 			return Feitico.builder()
 						 .nome(request.getNome())
+						 .tipo(request.getTipo())
 						 .descricao(request.getDescricao())
 						 .cenario(cenario.get())
 						 .build();

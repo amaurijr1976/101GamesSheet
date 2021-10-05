@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.games101.sheet.dto.ItemRequestDTO;
 import br.com.games101.sheet.dto.ItemResponseDTO;
-import br.com.games101.sheet.dto.PericiaResponseDTO;
 import br.com.games101.sheet.entity.Item;
-import br.com.games101.sheet.entity.Pericia;
 import br.com.games101.sheet.repository.ItemRepository;
 import br.com.games101.sheet.service.CenarioService;
 import br.com.games101.sheet.service.ItemService;
@@ -64,7 +62,6 @@ public class ItemServiceImpl implements ItemService {
 		Optional<Item> item = itemRepository.findById(id);
 		ItemResponseDTO itemResponse = null;
 		if(item.isPresent()) {
-			item.get().setId(id);
 			item.get().setNome(itemRequest.getNome());
 			item.get().setTipo(itemRequest.getTipo());
 			item.get().setDescricao(itemRequest.getDescricao());

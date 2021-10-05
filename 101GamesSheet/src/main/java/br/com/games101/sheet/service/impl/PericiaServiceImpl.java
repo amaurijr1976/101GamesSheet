@@ -10,10 +10,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.games101.sheet.dto.CenarioResponseDTO;
 import br.com.games101.sheet.dto.PericiaRequestDTO;
 import br.com.games101.sheet.dto.PericiaResponseDTO;
-import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.Pericia;
 import br.com.games101.sheet.repository.PericiaRepository;
 import br.com.games101.sheet.service.CenarioService;
@@ -63,7 +61,6 @@ public class PericiaServiceImpl implements PericiaService {
 		Optional<Pericia> pericia = periciaRepository.findById(id);
 		PericiaResponseDTO periciaResponse = null;
 		if(pericia.isPresent()) {
-			pericia.get().setId(id);
 			pericia.get().setNome(periciaRequest.getNome());
 			pericia.get().setDescricao(periciaRequest.getDescricao());
 			pericia.get().setCenario(cenarioService.buscarCenario(periciaRequest.getCenario()).get());
@@ -77,9 +74,5 @@ public class PericiaServiceImpl implements PericiaService {
 	public void excluirPericia(Long id) {
 		periciaRepository.deleteById(id);
 	}
-
-	
-	
-
 
 }

@@ -10,10 +10,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.games101.sheet.dto.PericiaResponseDTO;
 import br.com.games101.sheet.dto.VantagemRequestDTO;
 import br.com.games101.sheet.dto.VantagemResponseDTO;
-import br.com.games101.sheet.entity.Pericia;
 import br.com.games101.sheet.entity.Vantagem;
 import br.com.games101.sheet.repository.VantagemRepository;
 import br.com.games101.sheet.service.CenarioService;
@@ -66,7 +64,6 @@ public class VantagemServiceImpl implements VantagemService {
 		Optional<Vantagem> vantagem = vantagemRepository.findById(id);
 		VantagemResponseDTO vantagemResponse = null;
 		if(vantagem.isPresent()) {
-			vantagem.get().setId(id);
 			vantagem.get().setNome(vantagemRequest.getNome());
 			vantagem.get().setDescricao(vantagemRequest.getDescricao());
 			vantagem.get().setCenario(cenarioService.buscarCenario(vantagemRequest.getCenario()).get());

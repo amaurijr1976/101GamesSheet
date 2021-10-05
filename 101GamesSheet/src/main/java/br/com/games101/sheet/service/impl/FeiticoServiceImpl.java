@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.games101.sheet.dto.FeiticoRequestDTO;
 import br.com.games101.sheet.dto.FeiticoResponseDTO;
-import br.com.games101.sheet.dto.ItemResponseDTO;
 import br.com.games101.sheet.entity.Feitico;
-import br.com.games101.sheet.entity.Item;
 import br.com.games101.sheet.repository.FeiticoRepository;
 import br.com.games101.sheet.service.CenarioService;
 import br.com.games101.sheet.service.FeiticoService;
@@ -64,8 +62,8 @@ public class FeiticoServiceImpl implements FeiticoService {
 		Optional<Feitico> feitico = feiticoRepository.findById(id);
 		FeiticoResponseDTO feiticoResponse = null;
 		if(feitico.isPresent()) {
-			feitico.get().setId(id);
 			feitico.get().setNome(feiticoRequest.getNome());
+			feitico.get().setTipo(feiticoRequest.getTipo());
 			feitico.get().setDescricao(feiticoRequest.getDescricao());
 			feitico.get().setCenario(cenarioService.buscarCenario(feiticoRequest.getCenario()).get());
 			feiticoResponse = FeiticoResponseDTO.convertDTO(feitico.get());

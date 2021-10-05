@@ -1,7 +1,6 @@
 package br.com.games101.sheet.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +13,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.games101.sheet.dto.CenarioRequestDTO;
 import br.com.games101.sheet.dto.CenarioResponseDTO;
-import br.com.games101.sheet.dto.FeiticoRequestDTO;
-import br.com.games101.sheet.dto.FeiticoResponseDTO;
 import br.com.games101.sheet.entity.Cenario;
-import br.com.games101.sheet.entity.Feitico;
 import br.com.games101.sheet.repository.CenarioRepository;
 import br.com.games101.sheet.service.CenarioService;
 
