@@ -44,7 +44,7 @@ public class Refugio implements Serializable {
 	
 	private long espaco;
 	
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name="tb_melhoria_refugio",  joinColumns=
     {@JoinColumn(name="id_refugio")}, inverseJoinColumns=
       {@JoinColumn(name="id_melhoria")})

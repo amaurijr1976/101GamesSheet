@@ -40,8 +40,11 @@ public class RefugioServiceImpl implements RefugioService {
 	@Override
 	public RefugioResponseDTO incluiRefugio(@Valid RefugioRequestDTO refugioRequest) throws IllegalArgumentException {
 		Refugio refugio = Refugio.retornaEntity(refugioRequest);
-		RefugioResponseDTO refugioResponse = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio));
-		return refugioResponse;
+        List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
+		refugioRequest.getListaMelhoriaRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
+		refugio.setMelhoriasRefugio(listaMelhoria);
+		RefugioResponseDTO refugioDTO = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio));
+		return refugioDTO;
 	}
 
 	@Override
@@ -63,7 +66,8 @@ public class RefugioServiceImpl implements RefugioService {
 		refugio.setId(id);
 		refugioRequest.getListaMelhoriaRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
 		refugio.setMelhoriasRefugio(listaMelhoria);
-		return RefugioResponseDTO.convertDTO(refugioRepository.save(refugio));
+		RefugioResponseDTO refugioDTO = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio));
+		return refugioDTO;
 	}
 	
 	@Override
