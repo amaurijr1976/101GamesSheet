@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import org.springframework.beans.BeanUtils;
 
 import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.MelhoriaRefugio;
@@ -32,21 +30,15 @@ public class MelhoriaRefugioResponseDTO implements Serializable {
 	
 	private long bonus_defesa;
 
-	private Long cenario;
+	private Cenario cenario;
 
 	static public List<MelhoriaRefugioResponseDTO> convertDTO(List<MelhoriaRefugio> listaMelhoriasRefugio){
 		return listaMelhoriasRefugio.stream().map(melhoriaRefugio -> MelhoriaRefugioResponseDTO.convertDTO(melhoriaRefugio)).collect(Collectors.toList());
 	}
 
-	public static MelhoriaRefugioResponseDTO convertDTO(MelhoriaRefugio melhoriaRefugio) {
-		return MelhoriaRefugioResponseDTO.builder()
-							  .id(melhoriaRefugio.getId())
-							  .nome(melhoriaRefugio.getNome())
-							  .descricao(melhoriaRefugio.getDescricao())
-							  .custo_espaco(melhoriaRefugio.getCusto_espaco())
-							  .custo_tecnologia(melhoriaRefugio.getCusto_tecnologia())
-							  .bonus_defesa(melhoriaRefugio.getBonus_defesa())
-							  .cenario(melhoriaRefugio.getCenario().getId())
-							  .build();
-	}
+    static public MelhoriaRefugioResponseDTO convertDTO(MelhoriaRefugio melhoriaRefugio){
+    	MelhoriaRefugioResponseDTO melhoriaRefugioDTO = MelhoriaRefugioResponseDTO.builder().build();
+    	BeanUtils.copyProperties(melhoriaRefugio,melhoriaRefugioDTO);
+    	return melhoriaRefugioDTO;
+    }
 }

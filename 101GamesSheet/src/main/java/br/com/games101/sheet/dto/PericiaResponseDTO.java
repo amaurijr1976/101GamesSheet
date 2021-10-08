@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
+
+import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.Pericia;
 import lombok.Builder;
 import lombok.Data;
@@ -21,18 +24,15 @@ public class PericiaResponseDTO implements Serializable {
 	
 	private String descricao;
 	
-	private Long cenario;
+	private Cenario cenario;
 
 	static public List<PericiaResponseDTO> convertDTO(List<Pericia> listaPericias){
 		return listaPericias.stream().map(pericia -> PericiaResponseDTO.convertDTO(pericia)).collect(Collectors.toList());
 	}
 
-	public static PericiaResponseDTO convertDTO(Pericia pericia) {
-		return PericiaResponseDTO.builder()
-							  .id(pericia.getId())
-							  .nome(pericia.getNome())
-							  .descricao(pericia.getDescricao())
-							  .cenario(pericia.getCenario().getId())
-							  .build();
-	}
+    static public PericiaResponseDTO convertDTO(Pericia pericia){
+    	PericiaResponseDTO periciaDTO = PericiaResponseDTO.builder().build();
+    	BeanUtils.copyProperties(pericia,periciaDTO);
+    	return periciaDTO;
+    }
 }

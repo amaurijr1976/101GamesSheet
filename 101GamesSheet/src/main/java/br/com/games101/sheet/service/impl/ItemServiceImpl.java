@@ -32,7 +32,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Optional<Item> buscaItems(Long id) {
+	public Optional<Item> buscaItem(Long id) {
 		return itemRepository.findById(id);
 	}
 

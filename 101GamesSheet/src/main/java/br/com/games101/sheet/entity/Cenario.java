@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.games101.sheet.dto.CenarioRequestDTO;
 import br.com.games101.sheet.dto.CenarioResponseDTO;
 import lombok.AllArgsConstructor;
@@ -35,22 +37,27 @@ public class Cenario implements Serializable {
 	
 	private String nome;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "cenario",
 	           fetch = FetchType.LAZY)
 	private List<Item> items;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cenario",
 	           fetch = FetchType.LAZY)
 	private List<Feitico> feiticos;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cenario",
 	           fetch = FetchType.LAZY)
 	private List<Vantagem> vantagens;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cenario",
 	           fetch = FetchType.LAZY)
 	private List<Pericia> pericias;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cenario",
 	           fetch = FetchType.LAZY)
 	private List<MelhoriaRefugio> melhoriasRefugio;

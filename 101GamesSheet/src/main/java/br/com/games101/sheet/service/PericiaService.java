@@ -13,7 +13,7 @@ public interface PericiaService {
 
 	public List<PericiaResponseDTO> listaPericias();
 
-	public Optional<Pericia> buscaPericias(Long id);
+	public Optional<Pericia> buscaPericia(Long id);
 
 	public PericiaResponseDTO incluiPericia(@Valid PericiaRequestDTO periciaRequest);
 

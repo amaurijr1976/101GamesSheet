@@ -2,8 +2,9 @@ package br.com.games101.sheet.dto;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
 
 import br.com.games101.sheet.entity.Cenario;
 import lombok.AllArgsConstructor;
@@ -30,10 +31,9 @@ public class CenarioResponseDTO implements Serializable {
         			  .collect(Collectors.toList());
 	}
 	
-	public static CenarioResponseDTO convertDTO(Cenario cenario) {
-        	return  CenarioResponseDTO.builder()
-				.id(cenario.getId())
-				.nome(cenario.getNome())
-				.build();
-	}
+    static public CenarioResponseDTO convertDTO(Cenario cenario){
+    	CenarioResponseDTO cenarioDTO = CenarioResponseDTO.builder().build();
+    	BeanUtils.copyProperties(cenario,cenarioDTO);
+    	return cenarioDTO;
+    }
 }

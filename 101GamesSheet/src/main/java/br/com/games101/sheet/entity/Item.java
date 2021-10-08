@@ -2,8 +2,10 @@ package br.com.games101.sheet.entity;
 
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import br.com.games101.sheet.dto.ItemRequestDTO;
 import lombok.AllArgsConstructor;
@@ -38,7 +41,12 @@ public class Item implements Serializable {
 	
 	private String descricao;
 	
-   @ManyToOne(fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "item",
+			cascade=CascadeType.ALL,
+			orphanRemoval = true)
+	private List<PersonagemItems> personagemItems;
+	
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name="cenario", nullable=false)
    private Cenario cenario;
 	

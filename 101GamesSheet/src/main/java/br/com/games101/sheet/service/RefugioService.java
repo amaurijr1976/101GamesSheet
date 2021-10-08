@@ -13,7 +13,7 @@ public interface RefugioService {
 
 	public List<RefugioResponseDTO> listaRefugios();
 
-	public Optional<Refugio> buscaRefugios(Long id);
+	public Optional<Refugio> buscaRefugio(Long id);
 
 	public RefugioResponseDTO incluiRefugio(@Valid RefugioRequestDTO refugioRequest);
 

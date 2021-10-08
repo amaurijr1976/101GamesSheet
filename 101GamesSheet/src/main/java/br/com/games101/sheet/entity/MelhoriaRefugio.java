@@ -43,7 +43,7 @@ public class MelhoriaRefugio implements Serializable {
 	
 	private long bonus_defesa;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cenario", nullable=true)
 	private Cenario cenario;
 

@@ -42,7 +42,7 @@ public class RefugioController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<RefugioResponseDTO> buscaRefugio(@PathVariable @NumberFormat Long id){
-		Optional<Refugio> refugio = refugioService.buscaRefugios(id);
+		Optional<Refugio> refugio = refugioService.buscaRefugio(id);
 		return (refugio.isPresent())?ResponseEntity.status(HttpStatus.OK).body(RefugioResponseDTO.convertDTO(refugio.get())):ResponseEntity.notFound().build();
 	}
 	
@@ -61,7 +61,7 @@ public class RefugioController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluirFicha(@PathVariable Long id){
-		Optional<Refugio> buscaRefugios = refugioService.buscaRefugios(id);
+		Optional<Refugio> buscaRefugios = refugioService.buscaRefugio(id);
 		if(buscaRefugios.isPresent()) refugioService.excluirRefugio(id);
 		return (buscaRefugios.isPresent())?ResponseEntity.ok().build():ResponseEntity.notFound().build();
 	}

@@ -44,7 +44,7 @@ public class ItemController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ItemResponseDTO> buscaItem(@PathVariable @NumberFormat Long id){
-		Optional<Item> item = itemService.buscaItems(id);
+		Optional<Item> item = itemService.buscaItem(id);
 		return (item.isPresent())?ResponseEntity.status(HttpStatus.OK).body(ItemResponseDTO.convertDTO(item.get())):ResponseEntity.notFound().build();
 	}
 	
@@ -71,7 +71,7 @@ public class ItemController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluirFicha(@PathVariable Long id){
-		Optional<Item> buscaItems = itemService.buscaItems(id);
+		Optional<Item> buscaItems = itemService.buscaItem(id);
 		if(buscaItems.isPresent()) itemService.excluirItem(id);
 		return (buscaItems.isPresent())?ResponseEntity.ok().build():ResponseEntity.notFound().build();
 	}

@@ -13,7 +13,7 @@ public interface ItemService {
 
 	public List<ItemResponseDTO> listaItems();
 
-	public Optional<Item> buscaItems(Long id);
+	public Optional<Item> buscaItem(Long id);
 
 	public ItemResponseDTO incluiItem(@Valid ItemRequestDTO itemRequest);
 
@@ -22,6 +22,4 @@ public interface ItemService {
 	public ItemResponseDTO alterarItem(@Valid ItemRequestDTO itemRequest, long id);
 	
 	public void excluirItem(Long id);
-
-
 }

@@ -32,7 +32,7 @@ public class PericiaServiceImpl implements PericiaService {
 	}
 
 	@Override
-	public Optional<Pericia> buscaPericias(Long id) {
+	public Optional<Pericia> buscaPericia(Long id) {
 		return periciaRepository.findById(id);
 	}
 	@Override

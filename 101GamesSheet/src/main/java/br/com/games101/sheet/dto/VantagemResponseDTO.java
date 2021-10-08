@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
+
+import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.Vantagem;
 import lombok.Builder;
 import lombok.Data;
@@ -18,18 +21,15 @@ public class VantagemResponseDTO implements Serializable {
 	private long id;
 	private String nome;
 	private String descricao;
-	private Long cenario;
+	private Cenario cenario;
 
 	static public List<VantagemResponseDTO> convertDTO(List<Vantagem> listaVantagens){
 		return listaVantagens.stream().map(vantagem -> VantagemResponseDTO.convertDTO(vantagem)).collect(Collectors.toList());
 	}
 
-	public static VantagemResponseDTO convertDTO(Vantagem vantagem) {
-		return VantagemResponseDTO.builder()
-							  .id(vantagem.getId())
-							  .nome(vantagem.getNome())
-							  .descricao(vantagem.getDescricao())
-							  .cenario(vantagem.getCenario().getId())
-							  .build();
-	}
+    static public VantagemResponseDTO convertDTO(Vantagem vantagem){
+    	VantagemResponseDTO vantagemDTO = VantagemResponseDTO.builder().build();
+    	BeanUtils.copyProperties(vantagem,vantagemDTO);
+    	return vantagemDTO;
+    }
 }

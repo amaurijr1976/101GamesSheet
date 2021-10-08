@@ -34,7 +34,7 @@ public class Feitico {
 	
 	private String tipo;
 	
-   @ManyToOne(fetch = FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name="cenario", nullable=false)
    private Cenario cenario;
 	

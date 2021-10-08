@@ -26,5 +26,5 @@ public class VantagemRequestDTO implements Serializable {
 		
 	@Positive(message = "Conveio deve ser um numero positivo")
 	@CenarioExistAnnotation
-	private Long cenario;
+	private long cenario;
 }

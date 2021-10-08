@@ -42,7 +42,7 @@ public class PericiaController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<PericiaResponseDTO> buscaPericia(@PathVariable @NumberFormat Long id){
-		Optional<Pericia> pericia = periciaService.buscaPericias(id);
+		Optional<Pericia> pericia = periciaService.buscaPericia(id);
 		return (pericia.isPresent())?ResponseEntity.status(HttpStatus.OK).body(PericiaResponseDTO.convertDTO(pericia.get())):ResponseEntity.notFound().build();
 	}
 	
@@ -68,7 +68,7 @@ public class PericiaController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluirFicha(@PathVariable Long id){
-		Optional<Pericia> buscaPericias = periciaService.buscaPericias(id);
+		Optional<Pericia> buscaPericias = periciaService.buscaPericia(id);
 		if(buscaPericias.isPresent()) periciaService.excluirPericia(id);
 		return (buscaPericias.isPresent())?ResponseEntity.ok().build():ResponseEntity.notFound().build();
 	}

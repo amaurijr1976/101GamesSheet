@@ -57,7 +57,7 @@ public class Refugio implements Serializable {
 				 .local(requestRefugio.getLocal())
 				 .espaco(requestRefugio.getEspaco())
 				 .tecnologia(requestRefugio.getTecnologia())
-				 .melhoriasRefugio(requestRefugio.getListaMelhoriaRefugio())
+				 .melhoriasRefugio(requestRefugio.getMelhoriasRefugio())
 				 .build();
 	}
 

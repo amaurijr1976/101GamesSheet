@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.games101.sheet.dto.VantagemRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,9 +37,9 @@ public class Vantagem implements Serializable {
 	
 	private String descricao;
 	
-   @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name="cenario", nullable=false)
-   private Cenario cenario;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="cenario", nullable=false)
+    private Cenario cenario;
 	
 	static public Vantagem retornaEntity(VantagemRequestDTO request,Optional<Cenario> cenario) {
 			return Vantagem.builder()

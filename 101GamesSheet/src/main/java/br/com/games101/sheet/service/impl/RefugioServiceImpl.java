@@ -7,13 +7,16 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.games101.sheet.dto.RefugioRequestDTO;
 import br.com.games101.sheet.dto.RefugioResponseDTO;
+import br.com.games101.sheet.dto.VantagemResponseDTO;
 import br.com.games101.sheet.entity.MelhoriaRefugio;
 import br.com.games101.sheet.entity.Refugio;
+import br.com.games101.sheet.entity.Vantagem;
 import br.com.games101.sheet.repository.RefugioRepository;
 import br.com.games101.sheet.service.MelhoriaRefugioService;
 import br.com.games101.sheet.service.RefugioService;
@@ -33,7 +36,7 @@ public class RefugioServiceImpl implements RefugioService {
 	}
 
 	@Override
-	public Optional<Refugio> buscaRefugios(Long id) {
+	public Optional<Refugio> buscaRefugio(Long id) {
 		return refugioRepository.findById(id);
 	}
 
@@ -41,7 +44,7 @@ public class RefugioServiceImpl implements RefugioService {
 	public RefugioResponseDTO incluiRefugio(@Valid RefugioRequestDTO refugioRequest) throws IllegalArgumentException {
 		Refugio refugio = Refugio.retornaEntity(refugioRequest);
         List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
-		refugioRequest.getListaMelhoriaRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
+		refugioRequest.getMelhoriasRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
 		refugio.setMelhoriasRefugio(listaMelhoria);
 		RefugioResponseDTO refugioDTO = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio));
 		return refugioDTO;
@@ -50,23 +53,14 @@ public class RefugioServiceImpl implements RefugioService {
 	@Override
 	@Transactional
 	public RefugioResponseDTO alterarRefugio(@Valid RefugioRequestDTO refugioRequest, long id) {
-//		Optional<Refugio> refugio = refugioRepository.findById(id);
-//		RefugioResponseDTO refugioResponse = null;
-//		if(refugio.isPresent()) {
-//			refugio.get().setNome(refugioRequest.getNome());
-//			refugio.get().setLocal(refugioRequest.getLocal());
-//			refugio.get().setDefesa(refugioRequest.getDefesa());
-//			refugio.get().setEspaco(refugioRequest.getEspaco());
-//			refugio.get().setTecnologia(refugioRequest.getTecnologia());
-//			refugio.get().setMelhoriasRefugio(refugioRequest.getListaMelhoriaRefugio());
-//			refugioResponse = RefugioResponseDTO.convertDTO(refugio.get());
-//		}
-		Refugio refugio = Refugio.retornaEntity(refugioRequest);
-		List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
-		refugio.setId(id);
-		refugioRequest.getListaMelhoriaRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
-		refugio.setMelhoriasRefugio(listaMelhoria);
-		RefugioResponseDTO refugioDTO = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio));
+		Optional<Refugio> refugio = refugioRepository.findById(id);
+		RefugioResponseDTO  refugioDTO = null;
+		if(refugio.isPresent()) {
+			//List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
+			//refugioRequest.getListaMelhoriaRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
+			//refugio.setMelhoriasRefugio(listaMelhoria);
+			BeanUtils.copyProperties(refugioRequest,refugio.get());
+			refugioDTO = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio.get()));}
 		return refugioDTO;
 	}
 	

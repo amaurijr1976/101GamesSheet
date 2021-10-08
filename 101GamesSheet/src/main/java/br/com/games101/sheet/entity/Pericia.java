@@ -35,7 +35,7 @@ public class Pericia implements Serializable {
 	
 	private String descricao;
 	
-   @ManyToOne(fetch = FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name="cenario", nullable=false)
    private Cenario cenario;
 	
