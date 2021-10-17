@@ -35,6 +35,6 @@ public class RefugioRequestDTO implements Serializable {
 	@PositiveOrZero
 	private long espaco;
 
-	private List<MelhoriaRefugio> melhoriasRefugio;
+	private List<Long> melhoriasRefugio;
 
 }

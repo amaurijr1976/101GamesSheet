@@ -118,7 +118,7 @@ public class PersonagemServiceImpl implements PersonagemService {
 			Set<Feitico> listaFeiticos, Set<Vantagem> listaVantagens, Set<Pericia> listaPericias,
 			Set<Refugio> listaRefugios) {
 		//personagemRequest.getListaFeiticos().forEach(feiticoAux -> listaFeiticos.add(feiticoService.buscaFeitico(feiticoAux.getId()).get()));
-		personagemRequest.getListaPericias().forEach(periciaAux -> listaPericias.add(periciaService.buscaPericia(periciaAux.getId()).get()));
+		personagemRequest.getListaPericias().forEach(periciaAux -> listaPericias.add(periciaService.buscaPericia(periciaAux).get()));
 		//personagemRequest.getListaVantagens().forEach(vantagemAux -> listaVantagens.add(vantagemService.buscaVantagem(vantagemAux.getId()).get()));
 		//personagemRequest.getListaRefugios().forEach(refugioAux -> listaRefugios.add(refugioService.buscaRefugio(refugioAux.getId()).get()));
 		//personagem.setListaFeiticos(listaFeiticos);

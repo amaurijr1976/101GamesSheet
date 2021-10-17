@@ -41,10 +41,10 @@ public class RefugioServiceImpl implements RefugioService {
 	}
 
 	@Override
-	public RefugioResponseDTO incluiRefugio(@Valid RefugioRequestDTO refugioRequest) throws IllegalArgumentException {
+	public RefugioResponseDTO incluiRefugio(@Valid RefugioRequestDTO refugioRequest) throws IllegalArgumentException {		
 		Refugio refugio = Refugio.retornaEntity(refugioRequest);
         List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
-		refugioRequest.getMelhoriasRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
+		refugioRequest.getMelhoriasRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux).get()));
 		refugio.setMelhoriasRefugio(listaMelhoria);
 		RefugioResponseDTO refugioDTO = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio));
 		return refugioDTO;
@@ -57,9 +57,9 @@ public class RefugioServiceImpl implements RefugioService {
 		RefugioResponseDTO  refugioDTO = null;
 		if(refugio.isPresent()) {
 			List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
-			refugioRequest.getMelhoriasRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
-			refugioRequest.setMelhoriasRefugio(listaMelhoria);
+			refugioRequest.getMelhoriasRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux).get()));
 			BeanUtils.copyProperties(refugioRequest,refugio.get());
+			refugio.get().setMelhoriasRefugio(listaMelhoria);
 			refugioDTO = RefugioResponseDTO.convertDTO(refugio.get());}
 		return refugioDTO;
 	}

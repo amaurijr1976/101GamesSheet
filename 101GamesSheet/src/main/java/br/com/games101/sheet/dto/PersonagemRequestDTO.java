@@ -71,7 +71,7 @@ public class PersonagemRequestDTO implements Serializable {
 	@CenarioExistAnnotation
 	private Long cenario;
 	
-    private Set<Pericia> listaPericias;
+    private Set<Long> listaPericias;
     
 
 //    private Set<Feitico> listaFeiticos;
