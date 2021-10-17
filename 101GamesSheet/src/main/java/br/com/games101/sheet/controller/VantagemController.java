@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.games101.sheet.dto.PericiaRequestDTO;
-import br.com.games101.sheet.dto.PericiaResponseDTO;
 import br.com.games101.sheet.dto.VantagemRequestDTO;
 import br.com.games101.sheet.dto.VantagemResponseDTO;
 import br.com.games101.sheet.entity.Vantagem;

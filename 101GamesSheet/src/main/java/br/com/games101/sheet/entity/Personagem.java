@@ -1,7 +1,10 @@
 package br.com.games101.sheet.entity;
 
-import java.util.Calendar;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -59,47 +62,49 @@ public class Personagem {
 
 	private String historia;
     
-    private Calendar data_criacao;
+    private Date data_criacao;
 	
     private long experiencia;
+    
+    private long recursos;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name="cenario", nullable=false)
     private Cenario cenario;
     
     @ManyToMany()
-    @JoinTable(name="tb_pericia_personagem",  joinColumns=
-    {@JoinColumn(name="id_personagem")}, inverseJoinColumns=
-      {@JoinColumn(name="id_pericia")})
-    private List<Pericia> listaPericias;
+    @JoinTable(name = "tb_pericia_personagem", 
+    		  joinColumns = @JoinColumn(name = "id_personagem"), 
+    		  inverseJoinColumns = @JoinColumn(name = "id_pericia"))
+    private Set<Pericia> listaPericias;
     
-    @ManyToMany()
-    @JoinTable(name="tb_feitico_personagem",  joinColumns=
-    {@JoinColumn(name="id_personagem")}, inverseJoinColumns=
-      {@JoinColumn(name="id_feitico")})
-    private List<Feitico> listaFeiticos;
-    
-    @ManyToMany()
-    @JoinTable(name="tb_vantagem_personagem",  joinColumns=
-    {@JoinColumn(name="id_personagem")}, inverseJoinColumns=
-      {@JoinColumn(name="id_vantagem")})
-    private List<Vantagem> listaVantagens;
-    
-	@OneToMany(mappedBy = "personagem",
-			cascade=CascadeType.ALL,
-			orphanRemoval = true)
-	private List<PersonagemItems> listaItems;
-    
-    @ManyToMany()
-    @JoinTable(name="tb_refugio_personagem",  joinColumns=
-    {@JoinColumn(name="id_personagem")}, inverseJoinColumns=
-      {@JoinColumn(name="id_refugio")})
-    private List<Refugio> listaRefugios;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name="tb_magia_personagem",  joinColumns=
+//    {@JoinColumn(name="id_personagem")}, inverseJoinColumns=
+//      {@JoinColumn(name="id_magia")})
+//    private Set<Feitico> listaFeiticos;
+//    
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name="tb_vantagem_personagem",  joinColumns=
+//    {@JoinColumn(name="id_personagem")}, inverseJoinColumns=
+//      {@JoinColumn(name="id_vantagem")})
+//    private Set<Vantagem> listaVantagens;
+//    
+//	@OneToMany(mappedBy = "personagem",fetch = FetchType.EAGER)
+//	private Set<PersonagemItems> listaItems;
+//    
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name="tb_refugio_personagem",  joinColumns=
+//    {@JoinColumn(name="id_personagem")}, inverseJoinColumns=
+//      {@JoinColumn(name="id_refugio")})
+//    private Set<Refugio> listaRefugios;
     
 
-	public static Personagem retornaEntity(@Valid PersonagemRequestDTO personagemRequest) {
+	public static Personagem retornaEntity(@Valid PersonagemRequestDTO personagemRequest,Optional<Cenario> cenario) {
     	Personagem personagem = Personagem.builder().build();
-    	BeanUtils.copyProperties(personagemRequest,personagem);
+    	BeanUtils.copyProperties(personagemRequest,personagem,"data_criacao");
+    	personagem.setData_criacao(Date.valueOf(LocalDate.now()));
+    	personagem.setCenario(cenario.get());
     	return personagem;
 	}
     

@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.games101.sheet.dto.VantagemRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

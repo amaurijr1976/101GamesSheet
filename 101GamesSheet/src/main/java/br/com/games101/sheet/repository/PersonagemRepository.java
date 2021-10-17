@@ -6,4 +6,6 @@ import br.com.games101.sheet.entity.Personagem;
 
 public interface PersonagemRepository extends JpaRepository<Personagem,Long>{
 
+	//public List<PersonagemItems> FindAllBy
+	
 }

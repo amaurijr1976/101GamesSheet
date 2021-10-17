@@ -1,8 +1,7 @@
 package br.com.games101.sheet.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -11,19 +10,15 @@ import javax.validation.constraints.PositiveOrZero;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.games101.sheet.entity.Feitico;
-import br.com.games101.sheet.entity.Item;
 import br.com.games101.sheet.entity.Pericia;
-import br.com.games101.sheet.entity.PersonagemItems;
 import br.com.games101.sheet.entity.Refugio;
 import br.com.games101.sheet.entity.Vantagem;
 import br.com.games101.sheet.validation.CenarioExistAnnotation;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-@AllArgsConstructor
 public class PersonagemRequestDTO implements Serializable {
 	
 	private static final long serialVersionUID = 3625439735368602080L;
@@ -64,26 +59,29 @@ public class PersonagemRequestDTO implements Serializable {
 	@NotBlank @Length(max = 4500, message = "Tamanho deve até 4500 caracteres.")
 	private String historia;
     
-    private Calendar data_criacao;
+    private String data_criacao;
 	
     @PositiveOrZero
     private long experiencia;
+ 
+    @PositiveOrZero
+    private long recursos;    
     
 	@Positive(message = "Convenio deve ser um numero positivo")
 	@CenarioExistAnnotation
 	private Long cenario;
 	
-    private List<Pericia> listaPericias;
+    private Set<Pericia> listaPericias;
     
 
-    private List<Feitico> listaFeiticos;
-    
-
-    private List<Vantagem> listaVantagens;
-    
-
-    private List<PersonagemItems> listaItens;
-    
-
-    private List<Refugio> listaRefugios;
+//    private Set<Feitico> listaFeiticos;
+//    
+//
+//    private Set<Vantagem> listaVantagens;
+//    
+//
+//    private Set<ItemPersonagemRequestDTO> listaItens;
+//    
+//
+//    private Set<Refugio> listaRefugios;
 }

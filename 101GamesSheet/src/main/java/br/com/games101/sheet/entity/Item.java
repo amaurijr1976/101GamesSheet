@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -41,7 +42,8 @@ public class Item implements Serializable {
 	
 	private String descricao;
 	
-	@OneToMany(mappedBy = "item",
+	@OneToMany(fetch = FetchType.EAGER,
+			mappedBy = "item",
 			cascade=CascadeType.ALL,
 			orphanRemoval = true)
 	private List<PersonagemItems> personagemItems;

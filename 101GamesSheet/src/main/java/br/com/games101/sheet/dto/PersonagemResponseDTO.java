@@ -1,18 +1,18 @@
 package br.com.games101.sheet.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
 import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.Feitico;
-import br.com.games101.sheet.entity.Item;
 import br.com.games101.sheet.entity.Pericia;
 import br.com.games101.sheet.entity.Personagem;
-import br.com.games101.sheet.entity.PersonagemItems;
 import br.com.games101.sheet.entity.Refugio;
 import br.com.games101.sheet.entity.Vantagem;
 import lombok.Builder;
@@ -50,34 +50,53 @@ public class PersonagemResponseDTO implements Serializable {
 
 	private String historia;
     
-    private Calendar data_criacao;
+    private Date data_criacao;
 	
     private long experiencia;
     
+    private long recursos;
+    
     private Cenario cenario;
     
-    private List<Pericia> listaPericias;
+    private List<PericiaResponseDTO> listaPericias;
     
 
-    private List<Feitico> listaFeiticos;
-    
-
-    private List<Vantagem> listaVantagens;
-    
-
-    private List<PersonagemItems> listaItens;
-    
-
-    private List<Refugio> listaRefugios;
+//    private Set<Feitico> listaFeiticos;
+//    
+//
+//    private Set<Vantagem> listaVantagens;
+//    
+//
+//    private Set<ItemPersonagemResponseDTO> listaItemPersonagem;
+//    
+//
+//    private Set<Refugio> listaRefugios;
     
     static public List<PersonagemResponseDTO> convertDTO(List<Personagem> listaPersonagem){
     	return listaPersonagem.stream().map(personagem -> PersonagemResponseDTO.convertDTO(personagem)).collect(Collectors.toList());
     }
     
     static public PersonagemResponseDTO convertDTO(Personagem personagem){
-    	PersonagemResponseDTO personagemDTO = PersonagemResponseDTO.builder().build();
-    	BeanUtils.copyProperties(personagem,personagemDTO);
-    	return personagemDTO;
+    	return PersonagemResponseDTO.builder()
+    								.id(personagem.getId())
+    								.jogador(personagem.getJogador())
+    								.nome(personagem.getNome())
+    								.corpo(personagem.getCorpo())
+    								.saude(personagem.getSaude())
+    								.espirito(personagem.getEspirito())
+    								.postura(personagem.getPostura())
+    								.vontade(personagem.getVontade())
+    								.mente(personagem.getMente())
+    								.insanidade(personagem.getInsanidade())
+    								.fome(personagem.getFome())
+    								.historia(personagem.getHistoria())
+    								.experiencia(personagem.getExperiencia())
+    								.recursos(personagem.getRecursos())
+    								.raca(personagem.getRaca())    								
+    								.cenario(personagem.getCenario())
+    								.data_criacao(Date.valueOf(LocalDate.now()))
+    								.listaPericias(PericiaResponseDTO.convertDTO(personagem.getListaPericias()))
+    								.build();
+    	
     }
-
 }

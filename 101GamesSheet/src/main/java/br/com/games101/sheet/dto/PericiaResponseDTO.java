@@ -2,6 +2,7 @@ package br.com.games101.sheet.dto;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -27,6 +28,10 @@ public class PericiaResponseDTO implements Serializable {
 	private Cenario cenario;
 
 	static public List<PericiaResponseDTO> convertDTO(List<Pericia> listaPericias){
+		return listaPericias.stream().map(pericia -> PericiaResponseDTO.convertDTO(pericia)).collect(Collectors.toList());
+	}
+	
+	static public List<PericiaResponseDTO> convertDTO(Set<Pericia> listaPericias){
 		return listaPericias.stream().map(pericia -> PericiaResponseDTO.convertDTO(pericia)).collect(Collectors.toList());
 	}
 

@@ -56,11 +56,11 @@ public class RefugioServiceImpl implements RefugioService {
 		Optional<Refugio> refugio = refugioRepository.findById(id);
 		RefugioResponseDTO  refugioDTO = null;
 		if(refugio.isPresent()) {
-			//List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
-			//refugioRequest.getListaMelhoriaRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
-			//refugio.setMelhoriasRefugio(listaMelhoria);
+			List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
+			refugioRequest.getMelhoriasRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux.getId()).get()));
+			refugioRequest.setMelhoriasRefugio(listaMelhoria);
 			BeanUtils.copyProperties(refugioRequest,refugio.get());
-			refugioDTO = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio.get()));}
+			refugioDTO = RefugioResponseDTO.convertDTO(refugio.get());}
 		return refugioDTO;
 	}
 	

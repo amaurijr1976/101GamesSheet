@@ -2,6 +2,7 @@ package br.com.games101.sheet.entity;
 
 import java.io.Serializable;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import br.com.games101.sheet.dto.PericiaRequestDTO;
@@ -35,9 +37,9 @@ public class Pericia implements Serializable {
 	
 	private String descricao;
 	
-   @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name="cenario", nullable=false)
-   private Cenario cenario;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="cenario", nullable=false)
+    private Cenario cenario;
 	
 	static public Pericia retornaEntity(PericiaRequestDTO request,Optional<Cenario> cenario) {
 			return Pericia.builder()

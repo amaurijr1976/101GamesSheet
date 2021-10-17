@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.games101.sheet.dto.ItemPersonagemResponseDTO;
 import br.com.games101.sheet.dto.PersonagemRequestDTO;
 import br.com.games101.sheet.dto.PersonagemResponseDTO;
 import br.com.games101.sheet.entity.Personagem;
 import br.com.games101.sheet.service.PersonagemService;
+import br.com.games101.sheet.service.impl.PersonagemItemServiceImpl;
 
 @RestController
 @RequestMapping("/personagem")
@@ -33,6 +35,9 @@ public class PersonagemController {
 	
 	@Autowired
 	private PersonagemService personagemService;
+	
+	@Autowired
+	private PersonagemItemServiceImpl personagemItemService;
 
 	@GetMapping()
 	public ResponseEntity<List<PersonagemResponseDTO>> listaPersonagems(){
@@ -43,7 +48,13 @@ public class PersonagemController {
 	@GetMapping("/{id}")
 	public ResponseEntity<PersonagemResponseDTO> buscaPersonagem(@PathVariable @NumberFormat Long id){
 		Optional<Personagem> personagem = personagemService.buscaPersonagem(id);
-		return (personagem.isPresent())?ResponseEntity.status(HttpStatus.OK).body(PersonagemResponseDTO.convertDTO(personagem.get())):ResponseEntity.notFound().build();
+		if(personagem.isPresent()) {
+			PersonagemResponseDTO personagemDTO = PersonagemResponseDTO.convertDTO(personagem.get());
+			//personagemDTO.setListaItemPersonagem(ItemPersonagemResponseDTO.convertDTO(personagemItemService.findByPersonagemItemId_IdPersonagem(personagemDTO.getId())));
+			return ResponseEntity.status(HttpStatus.OK).body(personagemDTO);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	@PostMapping()
@@ -62,7 +73,9 @@ public class PersonagemController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluirFicha(@PathVariable Long id){
 		Optional<Personagem> buscaPersonagems = personagemService.buscaPersonagem(id);
-		if(buscaPersonagems.isPresent()) personagemService.excluirPersonagem(id);
+		if(buscaPersonagems.isPresent()) {
+			personagemService.excluirPersonagem(id);
+		}
 		return (buscaPersonagems.isPresent())?ResponseEntity.ok().build():ResponseEntity.notFound().build();
 	}
 }

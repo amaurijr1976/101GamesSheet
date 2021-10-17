@@ -23,8 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.games101.sheet.dto.ItemRequestDTO;
 import br.com.games101.sheet.dto.ItemResponseDTO;
-import br.com.games101.sheet.dto.VantagemRequestDTO;
-import br.com.games101.sheet.dto.VantagemResponseDTO;
 import br.com.games101.sheet.entity.Item;
 import br.com.games101.sheet.service.ItemService;
 

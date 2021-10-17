@@ -6,10 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
-import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.MelhoriaRefugio;
 import br.com.games101.sheet.entity.Refugio;
-import br.com.games101.sheet.entity.Vantagem;
 import lombok.Builder;
 import lombok.Data;
 
