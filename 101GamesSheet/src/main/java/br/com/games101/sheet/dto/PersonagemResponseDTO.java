@@ -61,16 +61,16 @@ public class PersonagemResponseDTO implements Serializable {
     private List<PericiaResponseDTO> listaPericias;
     
 
-//    private Set<Feitico> listaFeiticos;
-//    
+    private List<FeiticoResponseDTO> listaFeiticos;
+
+    
+    private Set<VantagemResponseDTO> listaVantagens;
+    
+    
+    private Set<RefugioResponseDTO> listaRefugios;
 //
-//    private Set<Vantagem> listaVantagens;
 //    
-//
 //    private Set<ItemPersonagemResponseDTO> listaItemPersonagem;
-//    
-//
-//    private Set<Refugio> listaRefugios;
     
     static public List<PersonagemResponseDTO> convertDTO(List<Personagem> listaPersonagem){
     	return listaPersonagem.stream().map(personagem -> PersonagemResponseDTO.convertDTO(personagem)).collect(Collectors.toList());
@@ -96,6 +96,9 @@ public class PersonagemResponseDTO implements Serializable {
     								.cenario(personagem.getCenario())
     								.data_criacao(Date.valueOf(LocalDate.now()))
     								.listaPericias(PericiaResponseDTO.convertDTO(personagem.getListaPericias()))
+    								.listaFeiticos(FeiticoResponseDTO.convertDTO(personagem.getListaFeiticos()))
+    								.listaVantagens(VantagemResponseDTO.convertDTO(personagem.getListaVantagens()))
+    								.listaRefugios(RefugioResponseDTO.convertDTO(personagem.getListaRefugios()))
     								.build();
     	
     }

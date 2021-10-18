@@ -81,12 +81,7 @@ public class PersonagemServiceImpl implements PersonagemService {
 	@Override
 	public PersonagemResponseDTO incluiPersonagem(@Valid PersonagemRequestDTO personagemRequest) throws IllegalArgumentException {
 		Personagem personagem = Personagem.retornaEntity(personagemRequest,cenarioService.buscarCenario(personagemRequest.getCenario()));
-		Set<Pericia> listaPericias = new HashSet<>();
-        Set<Feitico> listaFeiticos = new HashSet<>();
-        Set<Vantagem> listaVantagens = new HashSet<>();
-        Set<Refugio> listaRefugios = new HashSet<>();
-        Set<PersonagemItems> listaItensPersonagem = new HashSet<>();
-		relacionaListasPersonagem(personagemRequest, personagem, listaFeiticos, listaVantagens, listaPericias,listaRefugios);
+		relacionaListasPersonagem(personagemRequest, personagem);
 		PersonagemResponseDTO personagemDTO = PersonagemResponseDTO.convertDTO(personagemRepository.save(personagem));
 		//personagemRequest.getListaItens().forEach(itemAux -> listaItensPersonagem.add(geraItemPersonagem(itemAux,personagemDTO.getId())));
 		//personagemItemRepository.saveAll((Iterable<PersonagemItems>)listaItensPersonagem);
@@ -100,7 +95,8 @@ public class PersonagemServiceImpl implements PersonagemService {
 		Optional<Personagem> personagem = personagemRepository.findById(id);
 		PersonagemResponseDTO  personagemDTO = null;
 		if(personagem.isPresent()) {
-			BeanUtils.copyProperties(personagemRequest,personagem.get()); 
+			BeanUtils.copyProperties(personagemRequest,personagem.get());
+			relacionaListasPersonagem(personagemRequest, personagem.get());
 			personagemDTO = PersonagemResponseDTO.convertDTO(personagem.get());
 //			personagemDTO.setListaItemPersonagem(ItemPersonagemResponseDTO.convertDTO(personagem.get().getListaItems()));
 		}
@@ -114,17 +110,20 @@ public class PersonagemServiceImpl implements PersonagemService {
 		personagemRepository.deleteById(id);
 	}
 	
-	private void relacionaListasPersonagem(PersonagemRequestDTO personagemRequest, Personagem personagem,
-			Set<Feitico> listaFeiticos, Set<Vantagem> listaVantagens, Set<Pericia> listaPericias,
-			Set<Refugio> listaRefugios) {
-		//personagemRequest.getListaFeiticos().forEach(feiticoAux -> listaFeiticos.add(feiticoService.buscaFeitico(feiticoAux.getId()).get()));
+	private void relacionaListasPersonagem(PersonagemRequestDTO personagemRequest, Personagem personagem) {
+		Set<Pericia> listaPericias = new HashSet<>();
+        Set<Feitico> listaFeiticos = new HashSet<>();
+        Set<Vantagem> listaVantagens = new HashSet<>();
+        Set<Refugio> listaRefugios = new HashSet<>();
+        //Set<PersonagemItems> listaItensPersonagem = new HashSet<>();
+		personagemRequest.getListaFeiticos().forEach(feiticoAux -> listaFeiticos.add(feiticoService.buscaFeitico(feiticoAux).get()));
 		personagemRequest.getListaPericias().forEach(periciaAux -> listaPericias.add(periciaService.buscaPericia(periciaAux).get()));
-		//personagemRequest.getListaVantagens().forEach(vantagemAux -> listaVantagens.add(vantagemService.buscaVantagem(vantagemAux.getId()).get()));
-		//personagemRequest.getListaRefugios().forEach(refugioAux -> listaRefugios.add(refugioService.buscaRefugio(refugioAux.getId()).get()));
-		//personagem.setListaFeiticos(listaFeiticos);
+		personagemRequest.getListaVantagens().forEach(vantagemAux -> listaVantagens.add(vantagemService.buscaVantagem(vantagemAux).get()));
+		personagemRequest.getListaRefugios().forEach(refugioAux -> listaRefugios.add(refugioService.buscaRefugio(refugioAux).get()));
+		personagem.setListaFeiticos(listaFeiticos);
 		personagem.setListaPericias(listaPericias);
-		//personagem.setListaVantagens(listaVantagens);
-		//personagem.setListaRefugios(listaRefugios);
+		personagem.setListaVantagens(listaVantagens);
+		personagem.setListaRefugios(listaRefugios);
 	}
 	
 	private PersonagemItems geraItemPersonagem(ItemPersonagemRequestDTO itemAux,long id) {
