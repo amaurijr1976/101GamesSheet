@@ -21,9 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import br.com.games101.sheet.dto.ItemPersonagemResponseDTO;
 import br.com.games101.sheet.dto.PersonagemRequestDTO;
 import br.com.games101.sheet.dto.PersonagemResponseDTO;
+import br.com.games101.sheet.dto.ViewDetalhes;
 import br.com.games101.sheet.entity.Personagem;
 import br.com.games101.sheet.service.PersonagemService;
 import br.com.games101.sheet.service.impl.PersonagemItemServiceImpl;
@@ -39,11 +42,13 @@ public class PersonagemController {
 	@Autowired
 	private PersonagemItemServiceImpl personagemItemService;
 
+	
 	@GetMapping()
 	public ResponseEntity<List<PersonagemResponseDTO>> listaPersonagems(){
 		List<PersonagemResponseDTO> listaItens = personagemService.listaPersonagems();
 		return ResponseEntity.status(HttpStatus.OK).body(listaItens);
 	}
+	
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<PersonagemResponseDTO> buscaPersonagem(@PathVariable @NumberFormat Long id){
@@ -63,6 +68,7 @@ public class PersonagemController {
 			URI uri = uriBuilder.path("personagem/{id}").buildAndExpand(personagem.getId()).toUri();
 			return ResponseEntity.created(uri).body(personagem);
 	}
+	
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<PersonagemResponseDTO> alterarPersonagem(@RequestBody @Valid PersonagemRequestDTO personagemRequest,@PathVariable long id){

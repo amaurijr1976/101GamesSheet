@@ -4,22 +4,18 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import br.com.games101.sheet.entity.Cenario;
-import br.com.games101.sheet.entity.Feitico;
-import br.com.games101.sheet.entity.Pericia;
 import br.com.games101.sheet.entity.Personagem;
-import br.com.games101.sheet.entity.Refugio;
-import br.com.games101.sheet.entity.Vantagem;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
+@JsonView(ViewDetalhes.DetalheChild.class)
 public class PersonagemResponseDTO implements Serializable {
 
 	private static final long serialVersionUID = -8985353880999800249L;
@@ -64,13 +60,12 @@ public class PersonagemResponseDTO implements Serializable {
     private List<FeiticoResponseDTO> listaFeiticos;
 
     
-    private Set<VantagemResponseDTO> listaVantagens;
+    private List<VantagemResponseDTO> listaVantagens;
     
     
-    private Set<RefugioResponseDTO> listaRefugios;
-//
-//    
-//    private Set<ItemPersonagemResponseDTO> listaItemPersonagem;
+    private List<RefugioResponseDTO> listaRefugios;
+
+    private List<ItemPersonagemResponseDTO> listaItemPersonagem;
     
     static public List<PersonagemResponseDTO> convertDTO(List<Personagem> listaPersonagem){
     	return listaPersonagem.stream().map(personagem -> PersonagemResponseDTO.convertDTO(personagem)).collect(Collectors.toList());
@@ -99,6 +94,7 @@ public class PersonagemResponseDTO implements Serializable {
     								.listaFeiticos(FeiticoResponseDTO.convertDTO(personagem.getListaFeiticos()))
     								.listaVantagens(VantagemResponseDTO.convertDTO(personagem.getListaVantagens()))
     								.listaRefugios(RefugioResponseDTO.convertDTO(personagem.getListaRefugios()))
+    								.listaItemPersonagem(ItemPersonagemResponseDTO.convertDTO(personagem.getListaItems()))
     								.build();
     	
     }

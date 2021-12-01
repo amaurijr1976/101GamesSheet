@@ -4,16 +4,19 @@ import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
@@ -29,12 +32,15 @@ public class PersonagemItems implements Serializable{
 	@EmbeddedId
 	private PersonagemItemsId personagemItemId;
 	
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @MapsId("idItem")
     @JoinColumn(name = "item_id")
     private Item item;
  
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToOne()
     @MapsId("idPersonagem")
     @JoinColumn(name = "personagem_id")
     private Personagem personagem;

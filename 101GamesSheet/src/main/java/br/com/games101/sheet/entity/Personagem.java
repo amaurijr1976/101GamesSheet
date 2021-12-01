@@ -2,6 +2,7 @@ package br.com.games101.sheet.entity;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -72,33 +73,33 @@ public class Personagem {
     @JoinColumn(name="cenario", nullable=false)
     private Cenario cenario;
     
-    @ManyToMany()
+    @OneToMany()
     @JoinTable(name = "tb_pericia_personagem", 
     		  joinColumns = @JoinColumn(name = "id_personagem"), 
     		  inverseJoinColumns = @JoinColumn(name = "id_pericia"))
     private Set<Pericia> listaPericias;
     
-    @ManyToMany()
+    @OneToMany()
     @JoinTable(name="tb_magia_personagem",  
     			joinColumns=@JoinColumn(name="id_personagem"),
     			inverseJoinColumns= @JoinColumn(name="id_magia"))
     private Set<Feitico> listaFeiticos;
     
-    @ManyToMany()
+    @OneToMany()
     @JoinTable(name="tb_vantagem_personagem", 
     			joinColumns= {@JoinColumn(name="id_personagem")},
     			inverseJoinColumns= {@JoinColumn(name="id_vantagem")})
     private Set<Vantagem> listaVantagens;
 
-    @ManyToMany()
+    @OneToMany()
     @JoinTable(name="tb_refugio_personagem",
     			joinColumns={@JoinColumn(name="id_personagem")},
     			inverseJoinColumns={@JoinColumn(name="id_refugio")})
     private Set<Refugio> listaRefugios;
     
     
-//	@OneToMany(mappedBy = "personagem",fetch = FetchType.EAGER)
-//	private Set<PersonagemItems> listaItems;
+	@OneToMany(mappedBy = "personagem",fetch = FetchType.EAGER)
+	private Set<PersonagemItems> listaItems;
   
     
 
@@ -107,6 +108,11 @@ public class Personagem {
     	BeanUtils.copyProperties(personagemRequest,personagem,"data_criacao");
     	personagem.setData_criacao(Date.valueOf(LocalDate.now()));
     	personagem.setCenario(cenario.get());
+    	personagem.setListaFeiticos(new HashSet<Feitico>());
+    	personagem.setListaItems(new HashSet<PersonagemItems>());
+    	personagem.setListaPericias(new HashSet<Pericia>());
+    	personagem.setListaRefugios(new HashSet<Refugio>());
+    	personagem.setListaVantagens(new HashSet<Vantagem>());
     	return personagem;
 	}
     

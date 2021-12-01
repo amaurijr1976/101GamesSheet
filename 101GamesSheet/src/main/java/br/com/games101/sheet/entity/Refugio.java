@@ -1,15 +1,16 @@
 package br.com.games101.sheet.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import br.com.games101.sheet.dto.RefugioRequestDTO;
 import lombok.AllArgsConstructor;
@@ -40,11 +41,11 @@ public class Refugio implements Serializable {
 	
 	private long espaco;
 	
-    @ManyToMany()
-    @JoinTable(name="tb_melhoria_refugio",  joinColumns=
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="tb_melhoria_refugio",joinColumns=
     {@JoinColumn(name="id_refugio")}, inverseJoinColumns=
       {@JoinColumn(name="id_melhoria")})
-	private List<MelhoriaRefugio> melhoriasRefugio;
+	private Set<MelhoriaRefugio> melhoriasRefugio;
 	
 	static public Refugio retornaEntity(RefugioRequestDTO requestRefugio) {
 		return Refugio.builder()

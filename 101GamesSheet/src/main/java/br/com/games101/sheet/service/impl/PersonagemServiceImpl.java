@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -66,11 +65,6 @@ public class PersonagemServiceImpl implements PersonagemService {
 	@Override
 	public List<PersonagemResponseDTO> listaPersonagems() {
 		return PersonagemResponseDTO.convertDTO(personagemRepository.findAll());
-//		List<PersonagemResponseDTO> listaPersonagem =  PersonagemResponseDTO.convertDTO(personagemRepository.findAll());
-//		return listaPersonagem.stream().map(personagem -> {personagem.setListaItemPersonagem(ItemPersonagemResponseDTO.convertDTO(
-//																							personagemItemRepository.findByPersonagemItemId_IdPersonagem(personagem.getId())));
-//																							return personagem;})
-//																		.collect(Collectors.toList());
 	}
 
 	@Override
@@ -82,10 +76,11 @@ public class PersonagemServiceImpl implements PersonagemService {
 	public PersonagemResponseDTO incluiPersonagem(@Valid PersonagemRequestDTO personagemRequest) throws IllegalArgumentException {
 		Personagem personagem = Personagem.retornaEntity(personagemRequest,cenarioService.buscarCenario(personagemRequest.getCenario()));
 		relacionaListasPersonagem(personagemRequest, personagem);
+		List<PersonagemItems> listaItensPersonagem = new ArrayList<>();
 		PersonagemResponseDTO personagemDTO = PersonagemResponseDTO.convertDTO(personagemRepository.save(personagem));
-		//personagemRequest.getListaItens().forEach(itemAux -> listaItensPersonagem.add(geraItemPersonagem(itemAux,personagemDTO.getId())));
-		//personagemItemRepository.saveAll((Iterable<PersonagemItems>)listaItensPersonagem);
-		//personagemDTO.setListaItemPersonagem(ItemPersonagemResponseDTO.convertDTO(listaItensPersonagem));
+		personagemRequest.getListaItens().forEach(itemAux -> listaItensPersonagem.add(geraItemPersonagem(itemAux,personagemDTO.getId())));
+		personagemItemRepository.saveAll(listaItensPersonagem);
+		personagemDTO.setListaItemPersonagem(ItemPersonagemResponseDTO.convertDTO(listaItensPersonagem));
 		return personagemDTO;
 	}
 
@@ -93,12 +88,16 @@ public class PersonagemServiceImpl implements PersonagemService {
 	@Transactional
 	public PersonagemResponseDTO alterarPersonagem(@Valid PersonagemRequestDTO personagemRequest, long id) {
 		Optional<Personagem> personagem = personagemRepository.findById(id);
+		Set<PersonagemItems> listaItensPersonagem = new HashSet<>();
 		PersonagemResponseDTO  personagemDTO = null;
 		if(personagem.isPresent()) {
 			BeanUtils.copyProperties(personagemRequest,personagem.get());
 			relacionaListasPersonagem(personagemRequest, personagem.get());
+			personagemItemRepository.deleteAll(personagem.get().getListaItems());
+			personagemRequest.getListaItens().forEach(itemAux -> listaItensPersonagem.add(geraItemPersonagem(itemAux,personagem.get().getId())));
+			personagemItemRepository.saveAll(listaItensPersonagem);
+			personagem.get().setListaItems(listaItensPersonagem);
 			personagemDTO = PersonagemResponseDTO.convertDTO(personagem.get());
-//			personagemDTO.setListaItemPersonagem(ItemPersonagemResponseDTO.convertDTO(personagem.get().getListaItems()));
 		}
 		return personagemDTO;
 	}
@@ -115,8 +114,7 @@ public class PersonagemServiceImpl implements PersonagemService {
         Set<Feitico> listaFeiticos = new HashSet<>();
         Set<Vantagem> listaVantagens = new HashSet<>();
         Set<Refugio> listaRefugios = new HashSet<>();
-        //Set<PersonagemItems> listaItensPersonagem = new HashSet<>();
-		personagemRequest.getListaFeiticos().forEach(feiticoAux -> listaFeiticos.add(feiticoService.buscaFeitico(feiticoAux).get()));
+        personagemRequest.getListaFeiticos().forEach(feiticoAux -> listaFeiticos.add(feiticoService.buscaFeitico(feiticoAux).get()));
 		personagemRequest.getListaPericias().forEach(periciaAux -> listaPericias.add(periciaService.buscaPericia(periciaAux).get()));
 		personagemRequest.getListaVantagens().forEach(vantagemAux -> listaVantagens.add(vantagemService.buscaVantagem(vantagemAux).get()));
 		personagemRequest.getListaRefugios().forEach(refugioAux -> listaRefugios.add(refugioService.buscaRefugio(refugioAux).get()));

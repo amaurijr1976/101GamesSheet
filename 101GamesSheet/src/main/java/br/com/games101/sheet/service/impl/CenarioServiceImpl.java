@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.games101.sheet.dto.CenarioRequestDTO;
@@ -24,8 +26,8 @@ public class CenarioServiceImpl implements CenarioService {
 	private CenarioRepository cenarioRepository;
 	
 	@Override
-	public List<CenarioResponseDTO> listaFichas() {
-		return CenarioResponseDTO.convertDTO(cenarioRepository.findAll());
+	public Page<CenarioResponseDTO> listaFichas(Pageable paginacao) {
+		return CenarioResponseDTO.convertDTO(cenarioRepository.findAll(paginacao));
 	}
 
 	@Override

@@ -81,7 +81,7 @@ public class PersonagemRequestDTO implements Serializable {
     
 
     private Set<Long> listaRefugios;
-//
-//     
-//     private Set<Long> listaItens;
+
+     
+     private Set<ItemPersonagemRequestDTO> listaItens;
 }

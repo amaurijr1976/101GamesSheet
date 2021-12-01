@@ -29,8 +29,12 @@ public class ItemResponseDTO implements Serializable {
 	}
 
     static public ItemResponseDTO convertDTO(Item item){
-    	ItemResponseDTO itemDTO = ItemResponseDTO.builder().build();
-    	BeanUtils.copyProperties(item,itemDTO);
-    	return itemDTO;
+    	return ItemResponseDTO.builder()
+    						  .cenario(item.getCenario())
+    						  .descricao(item.getDescricao())
+    						  .nome(item.getNome())
+    						  .tipo(item.getTipo())
+    						  .id(item.getId())
+    						  .build();
     }
 }

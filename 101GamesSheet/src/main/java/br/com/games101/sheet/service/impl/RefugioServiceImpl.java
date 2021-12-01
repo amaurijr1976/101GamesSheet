@@ -1,8 +1,10 @@
 package br.com.games101.sheet.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -13,10 +15,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.games101.sheet.dto.RefugioRequestDTO;
 import br.com.games101.sheet.dto.RefugioResponseDTO;
-import br.com.games101.sheet.dto.VantagemResponseDTO;
 import br.com.games101.sheet.entity.MelhoriaRefugio;
 import br.com.games101.sheet.entity.Refugio;
-import br.com.games101.sheet.entity.Vantagem;
 import br.com.games101.sheet.repository.RefugioRepository;
 import br.com.games101.sheet.service.MelhoriaRefugioService;
 import br.com.games101.sheet.service.RefugioService;
@@ -43,7 +43,7 @@ public class RefugioServiceImpl implements RefugioService {
 	@Override
 	public RefugioResponseDTO incluiRefugio(@Valid RefugioRequestDTO refugioRequest) throws IllegalArgumentException {		
 		Refugio refugio = Refugio.retornaEntity(refugioRequest);
-        List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
+        Set<MelhoriaRefugio> listaMelhoria = new HashSet<>();
 		refugioRequest.getMelhoriasRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux).get()));
 		refugio.setMelhoriasRefugio(listaMelhoria);
 		RefugioResponseDTO refugioDTO = RefugioResponseDTO.convertDTO(refugioRepository.save(refugio));
@@ -56,7 +56,7 @@ public class RefugioServiceImpl implements RefugioService {
 		Optional<Refugio> refugio = refugioRepository.findById(id);
 		RefugioResponseDTO  refugioDTO = null;
 		if(refugio.isPresent()) {
-			List<MelhoriaRefugio> listaMelhoria = new ArrayList<>();
+			Set<MelhoriaRefugio> listaMelhoria = new HashSet<>();
 			refugioRequest.getMelhoriasRefugio().forEach(refugioAux -> listaMelhoria.add(melhoriaRefugioService.buscaMelhoriaRefugio(refugioAux).get()));
 			BeanUtils.copyProperties(refugioRequest,refugio.get());
 			refugio.get().setMelhoriasRefugio(listaMelhoria);

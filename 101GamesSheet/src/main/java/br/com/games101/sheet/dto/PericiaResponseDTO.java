@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import br.com.games101.sheet.entity.Cenario;
 import br.com.games101.sheet.entity.Pericia;
 import lombok.Builder;
@@ -19,12 +21,16 @@ public class PericiaResponseDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonView(ViewDetalhes.DetalheChild.class)
 	private long id;
 	
+	@JsonView(ViewDetalhes.DetalheChild.class)
 	private String nome;
 	
+	@JsonView(ViewDetalhes.DetalheChild.class)
 	private String descricao;
 	
+	@JsonView(ViewDetalhes.DetalheCompleto.class)
 	private Cenario cenario;
 
 	static public List<PericiaResponseDTO> convertDTO(List<Pericia> listaPericias){

@@ -16,11 +16,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.games101.sheet.dto.ItemRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
@@ -42,10 +46,7 @@ public class Item implements Serializable {
 	
 	private String descricao;
 	
-	@OneToMany(fetch = FetchType.EAGER,
-			mappedBy = "item",
-			cascade=CascadeType.ALL,
-			orphanRemoval = true)
+	@OneToMany(mappedBy = "item",fetch = FetchType.EAGER)
 	private List<PersonagemItems> personagemItems;
 	
    @ManyToOne(fetch = FetchType.EAGER)

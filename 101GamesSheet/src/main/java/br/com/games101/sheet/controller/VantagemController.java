@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import br.com.games101.sheet.dto.VantagemRequestDTO;
 import br.com.games101.sheet.dto.VantagemResponseDTO;
+import br.com.games101.sheet.dto.ViewDetalhes;
 import br.com.games101.sheet.entity.Vantagem;
 import br.com.games101.sheet.service.VantagemService;
 
@@ -46,6 +49,7 @@ public class VantagemController {
 		return (vantagem.isPresent())?ResponseEntity.status(HttpStatus.OK).body(VantagemResponseDTO.convertDTO(vantagem.get())):ResponseEntity.notFound().build();
 	}
 	
+	
 	@PostMapping()
 	public ResponseEntity<VantagemResponseDTO> incluiVantagem(@RequestBody @Valid VantagemRequestDTO vantagemRequest,UriComponentsBuilder uriBuilder){
 			VantagemResponseDTO vantagem = vantagemService.incluiVantagem(vantagemRequest);
@@ -53,6 +57,7 @@ public class VantagemController {
 			return ResponseEntity.created(uri).body(vantagem);
 	}
 	
+
 	@PostMapping("/incluiListaVantagens")
 	public ResponseEntity<List<VantagemResponseDTO>> incluiListaPericias(@RequestBody @Valid List<VantagemRequestDTO> vantagemRequestLista){
 			List<VantagemResponseDTO> vantagens = vantagemService.incluiListaVantagens(vantagemRequestLista);

@@ -18,10 +18,14 @@ public class ItemPersonagemResponseDTO {
 	private long quantidade;
 
 
-	static public Set<ItemPersonagemResponseDTO> convertDTO(Set<PersonagemItems> listaItens){
-		return listaItens.stream().map(item -> ItemPersonagemResponseDTO.convertDTO(item)).collect(Collectors.toSet());
+	static public List<ItemPersonagemResponseDTO> convertDTO(Set<PersonagemItems> listaItens){
+		return listaItens.stream().map(item -> ItemPersonagemResponseDTO.convertDTO(item)).collect(Collectors.toList());
 	}
 
+	static public List<ItemPersonagemResponseDTO> convertDTO(List<PersonagemItems> listaItens){
+		return listaItens.stream().map(item -> ItemPersonagemResponseDTO.convertDTO(item)).collect(Collectors.toList());
+	}
+	
     static public ItemPersonagemResponseDTO convertDTO(PersonagemItems item){
     	return ItemPersonagemResponseDTO.builder()
     								 .item(ItemResponseDTO.convertDTO(item.getItem()))
