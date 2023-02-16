@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Data
 public class CenarioRequestDTO implements Serializable {
-
+	//teste
 	private static final long serialVersionUID = 4815755529445540690L;
 
 	@NotBlank @Length(min = 3, max = 45, message = "Tamanho do nome deve ser entre 3 e 45 caracteres.")
