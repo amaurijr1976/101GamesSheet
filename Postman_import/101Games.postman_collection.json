@@ -1,0 +1,852 @@
+{
+	"info": {
+		"_postman_id": "5676701c-3fcc-4971-9174-0f1bcb29139b",
+		"name": "101Games",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cenario",
+			"item": [
+				{
+					"name": "get fichas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cenario",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cenario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detalheFicha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cenario/9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cenario",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post fichas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n      \"nome\":\"vampiro\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cenario",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cenario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post lista cenarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    [\r\n        {\r\n            \"nome\":\"Vampiro Sozinho na escuridão\"\r\n        },\r\n        {\r\n            \"nome\":\"Bruxo Pactos das Sombras\"\r\n        },\r\n        {\r\n             \"nome\":\"Licantropo Maldição de sangue\"\r\n        }\r\n    ]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cenario/incluiListaCenarios",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cenario",
+								"incluiListaCenarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterar cenario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Vampiro Sozinho na Escuridão\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cenario/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cenario",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete cenario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cenario/19",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cenario",
+								"19"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"item": [
+				{
+					"name": "get items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/item",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busca item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/item/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"item",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvar item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"lanterna\",\r\n    \"tipo\": \"item\",\r\n    \"descricao\": \"lanterna baixa luminosidade\",\r\n    \"cenario\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/item",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvar lista itens",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"lanterna\",\r\n    \"tipo\": \"item\",\r\n    \"descricao\": \"lanterna baixa luminosidade\",\r\n    \"cenario\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/item/incluiListaItens",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"item",
+								"incluiListaItens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterar item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"nome\": \"faca\",\r\n        \"tipo\": \"arma\",\r\n        \"descricao\": \"faca\",\r\n        \"cenario\": 9\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/item/9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"item",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/item/9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"item",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pericia",
+			"item": [
+				{
+					"name": "get pericias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pericia",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pericia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detalhe Pericia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pericia/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pericia",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post pericia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"atirar\",\r\n    \"descricao\": \"atirar\",\r\n    \"cenario\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pericia",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pericia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvar lista pericias",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"atirar\",\r\n    \"descricao\": \"atirar\",\r\n    \"cenario\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/periciaincluiListaPericias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"periciaincluiListaPericias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterar pericia",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"disparar\",\r\n    \"descricao\": \"atirar\",\r\n    \"cenario\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pericia/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pericia",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete pericia",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pericia/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pericia",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vantagem",
+			"item": [
+				{
+					"name": "lista vantagens",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/vantagem",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vantagem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detalhe vantagem",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/vantagem/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vantagem",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post vantagem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"atirar\",\r\n    \"descricao\": \"atirar\",\r\n    \"cenario\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/vantagem",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vantagem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvar lista vantagens",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"atirar\",\r\n    \"descricao\": \"atirar\",\r\n    \"cenario\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/vantagem/incluiListaVantagens",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vantagem",
+								"incluiListaVantagens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterar vantagem",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"disparar\",\r\n    \"descricao\": \"atirar\",\r\n    \"cenario\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vantagem/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vantagem",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete vantagem",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/vantagem/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vantagem",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "feitico",
+			"item": [
+				{
+					"name": "get feiticos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/feitico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feitico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detalhe Feitico",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/feitico/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feitico",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post feitico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"curar\",\r\n    \"descricao\": \"cura\",\r\n    \"cenario\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/feitico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feitico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salva lista feiticos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"atirar\",\r\n    \"descricao\": \"atirar\",\r\n    \"cenario\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/feiticoincluiListaFeiticos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feiticoincluiListaFeiticos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterar feitico",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"disparar\",\r\n    \"descricao\": \"atirar\",\r\n    \"cenario\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/feitico/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feitico",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete feitico",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/feitico/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"feitico",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "listagens",
+			"item": [
+				{
+					"name": "lista Itens por cenario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/listaporcenarios/9/itens",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listaporcenarios",
+								"9",
+								"itens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lista feiticos por cenario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/listaporcenarios/14/feiticos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listaporcenarios",
+								"14",
+								"feiticos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lista pericia por cenario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/listaporcenarios/15/pericias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listaporcenarios",
+								"15",
+								"pericias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lista vantagem por cenario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/listaporcenarios/9/vantagens",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listaporcenarios",
+								"9",
+								"vantagens"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
